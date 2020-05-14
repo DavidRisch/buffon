@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import math
 from scipy.stats import t as t_student
 
