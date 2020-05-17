@@ -1,0 +1,85 @@
+\documentclass[10pt,twocolumn]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3mm}
+\setlength{\textheight}{23.8cm}
+\setlength{\headheight}{1cm}
+\setlength{\topmargin}{-10mm}
+
+\setlength{\oddsidemargin}{0cm}
+\setlength{\evensidemargin}{0cm}
+\setlength{\textwidth}{16cm}
+\setlength{\columnsep}{8mm}
+
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\definecolor{grau}{gray}{0.95}
+\definecolor{dunkelgrau}{gray}{0.85}
+
+\usepackage[normal]{caption}
+
+\setlength{\parindent}{5mm}
+\setlength{\parskip}{0mm}
+
+\usepackage{float}
+\restylefloat{figure}
+
+\renewcommand{\topfraction}{0.75}
+\renewcommand{\textfraction}{0.2}
+
+\newcommand{\TITLE}{Title Title Title Title}
+\newcommand{\AUTHORS}{Lukas Rosenbach\\ David Lennart Risch}
+
+
+%###########################################################
+% die Sachen mit der Kopfzeile
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\fancyhf{} % leere alle Felder
+\fancyhead[R]{\footnotesize \AUTHORS}
+\fancyhead[L]{\footnotesize \TITLE} % Titel des Aufsatzes
+\fancyfoot[C]{\footnotesize \thepage/\pageref{LastPage}}
+% \fancyfoot[C]{\footnotesize \thepage}
+\renewcommand{\headrulewidth}{0.4pt} % obere Trennlinie
+\pagestyle{fancy}
+%###########################################################
+
+\newcommand{\ownsection}[1]{\begin{center}\LARGE\textbf#1\end{center}}
+
+\begin{document}
+
+\twocolumn[
+\ownsection{\TITLE}
+
+\begin{center}
+\AUTHORS \\
+Mannheim, Juni 2020
+\end{center}
+\vspace*{5mm}
+]
+
+\section*{Abstract}
+
+\section*{Einleitung}
+
+\section*{Material und Methoden}
+
+\section*{Durchführung}
+
+\section*{Ergebnisse und Diskussion}
+
+\begin{thebibliography}{99}
+\end{thebibliography}
+
+\end{document}
