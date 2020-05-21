@@ -16,7 +16,7 @@ class Simulation:
         for i in range(n):
             x = random.uniform(0, self.line_count * self.line_distance)
             y = random.uniform(0, self.height)
-            angle = random.uniform(0, 2*math.pi)
+            angle = random.uniform(0, 2 * math.pi)
             result.add_needle(x, y, angle)
         return result
 
@@ -24,4 +24,4 @@ class Simulation:
         if self.needle_length > self.line_distance:
             raise ArithmeticError()
 
-        return (2*self.needle_length)/(self.line_distance*math.pi)
+        return (2 * self.needle_length) / (self.line_distance * math.pi)

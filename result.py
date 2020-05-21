@@ -16,8 +16,8 @@ class Result:
         self.needles += [[x, y, angle, False]]
         self.total_needles += 1
 
-        distance_to_line = (x+self.line_distance/2) % self.line_distance
-        distance_to_line = min(distance_to_line, self.line_distance-distance_to_line)
+        distance_to_line = (x + self.line_distance / 2) % self.line_distance
+        distance_to_line = min(distance_to_line, self.line_distance - distance_to_line)
         needle_x_extent = abs(math.cos(angle)) * (self.needle_length / 2)
         if needle_x_extent >= distance_to_line:
             self.needles_on_line += 1
