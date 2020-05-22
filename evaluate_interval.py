@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import numpy as np
-import interval_estimate
-import dot_graph
+from calc import interval_estimate
+from util import dot_graph
 
 
 def dummy_data():

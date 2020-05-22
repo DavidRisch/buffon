@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import numpy as np
-import test_mean
-import dot_graph
+from calc import test_mean
+from util import dot_graph
 
 
 def dummy_data():

@@ -3,13 +3,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+from definitions import *
 
 
 class DotGraph:
     def __init__(self, x, y):
         self.fig, self.ax = plt.subplots(1, 1, tight_layout=True)
 
-        self.ax.plot(x, y, color="#000000FF", linestyle="", marker="o")
+        self.ax.plot(x, y, color=color_dot, linestyle="", marker="o")
 
     def save(self, path):
         self.fig.savefig(path)
