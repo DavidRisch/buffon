@@ -17,7 +17,7 @@ class Histogram:
             self.max_value = math.ceil(self.max_value) + 0.5
             bin_number = round(self.max_value - self.min_value)
 
-        self.fig, self.ax = plt.subplots(1, 1, tight_layout=True)
+        self.fig, self.ax = plt.subplots(1, 1, tight_layout=True, figsize=(plot_width, plot_height), dpi=plot_dpi)
 
         bins, bin_width = self.generate_bins(self.min_value, self.max_value, bin_number)
 
