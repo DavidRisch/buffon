@@ -1,4 +1,4 @@
-import result as res
+from sim import result as res
 import random
 import math
 

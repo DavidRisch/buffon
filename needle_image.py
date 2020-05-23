@@ -1,5 +1,4 @@
-import simulation
-import simulation_graphic
+from sim import simulation, simulation_graphic
 
 
 def make_image():
