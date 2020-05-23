@@ -14,7 +14,7 @@ def dummy_data():
 
 
 def iteration(inside_probability, debug=False):
-    interval = interval_estimate.estimate_interval(dummy_data(), inside_probability, debug=debug)
+    interval = interval_estimate.estimate_interval(dummy_data(), inside_probability, debug=debug)[0]
     return interval[0] <= 5 <= interval[1]
 
 
@@ -34,7 +34,7 @@ def evaluate_interval(inside_probability, iterations=100):
 
 
 def make_graph(iterations=100):
-    x = np.linspace(0, 1, 20 + 1)
+    x = np.linspace(0, 0.99, 20 + 1)
     y = []
     for x_val in x:
         y.append(evaluate_interval(x_val, iterations))
@@ -44,7 +44,7 @@ def make_graph(iterations=100):
 
     dg = dot_graph.DotGraph(x, y)
     dg.show()
-    dg.save("output/interval_estimates.png")
+    dg.save("output/interval_mean_estimates.png")
 
 
 if __name__ == "__main__":

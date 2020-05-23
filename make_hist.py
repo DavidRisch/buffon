@@ -23,7 +23,7 @@ def make_graph(iterations=100):
 
     avg = sum(data) / len(data)
     inside_probability = 0.80
-    interval = interval_estimate.estimate_interval(data, inside_probability)
+    interval = interval_estimate.estimate_interval(data, inside_probability)[0]
     interval_correct = interval[0] <= mean <= interval[1]
 
     width = 0.3

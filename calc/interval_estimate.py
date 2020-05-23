@@ -3,6 +3,7 @@
 import math
 import numpy as np
 from scipy.stats import t as t_student
+from scipy.stats import chi2
 
 
 def estimate_interval(data, inside_probability, debug=False):
@@ -11,23 +12,36 @@ def estimate_interval(data, inside_probability, debug=False):
     observed_mean = sum(data) / n
     estimated_std_deviation = math.sqrt(1 / (n - 1) * sum([(point - observed_mean) ** 2 for point in data]))
 
+    # confidence interval: mean
     c = t_student.ppf((inside_probability + 1) / 2, degrees_of_freedom)  # ppf = "Percent point function"
 
     half_delta = (c * estimated_std_deviation) / math.sqrt(n)
 
-    c_1 = observed_mean - half_delta
-    c_2 = observed_mean + half_delta
+    mean_l = observed_mean - half_delta
+    mean_h = observed_mean + half_delta
+
+    # confidence interval: variance
+    error_probability = 1 - inside_probability
+    c_1 = chi2.ppf(error_probability / 2, degrees_of_freedom)
+    c_2 = chi2.ppf(1 - error_probability / 2, degrees_of_freedom)
+
+    var_l = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_2)
+    var_h = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_1)
+    var_l, var_h = map(
+        lambda c_n: math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_n),
+        [c_2, c_1])  # order is intentionally inverted
 
     if debug:
         print()
         print("inside_probability", inside_probability)
         print("observed_mean", observed_mean)
         print("estimated_std_deviation", estimated_std_deviation)
-        print("c", c, "  c_1", c_1, "  c_2", c_2)
-        inside = sum([1 for x in data if c_1 <= x <= c_2])
+        print("c", c, "  mean_l", mean_l, "  mean_h", mean_h)
+        inside = sum([1 for x in data if mean_l <= x <= mean_h])
         print("inside", inside, "  inside/n", inside / n)
+        print("c", c, "  var_l", var_l, "  var_h", var_h)
 
-    return [c_1, c_2]
+    return [mean_l, mean_h], [var_l, var_h]
 
 
 if __name__ == "__main__":
