@@ -75,11 +75,39 @@ Mannheim, Juni 2020
 
 \section*{Material und Methoden}
 
+	\subsection*{Buffonsches Nadelproblem}
+		Bei dem Buffonschen Nadelproblem, das erstmals von Buffon im Jahr 1733 behandelt wurde, geht es um die Wahrscheinlichkeit, dass eine Nadel, die auf eine Fläche mit parallelen Linien gleichen Abstands geworfen wird, eine Linie schneidet.
+		
+		Dieses Experiment beinhaltet eine Nadel der Länge l, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand d fällt. Für eine kurze Nadel, also l < d, lässt sich die Wahrscheinlichkeit wie folgst berechnen: \cite{MathWorld}
+		
+		\begin{equation}
+			x \equiv \frac{l}{d}
+		\end{equation}
+		
+		\begin{align}
+			P(x) &= \int_{0}^{2\pi}\frac{l|\cos{\theta}}{d}\frac{d\theta}{2\pi}\\
+			&= \frac{2l}{\pi d}\int_{0}^{2\pi}\cos{\theta}d\theta\\
+			&= \frac{2l}{\pi d}\\
+			&= \frac{2x}{\pi}
+		\end{align}
+		
+		Für einen Linienabstand von 2l entspricht die Wahrscheinlichkeit $1/\pi$.
+		
+		\begin{align}
+			P &= \frac{2l}{\pi d}\\
+			&= \frac{2l}{\pi 2l}\\
+			&= \pi
+		\end{align}
+		
+		Somit ist es möglich mithilfe eines Monte-Carlo-Verfahrens den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern.
+		
 \section*{Durchführung}
 
 \section*{Ergebnisse und Diskussion}
 
 \begin{thebibliography}{99}
+	\bibitem{MathWorld}Weisstein, Eric W.: {\it Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/BuffonsNeedleProblem.html
+	%TODO Link zerstört die Formatierung
 \end{thebibliography}
 
 \end{document}
