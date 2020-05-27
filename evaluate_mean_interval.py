@@ -3,26 +3,23 @@
 import numpy as np
 from calc import interval_estimate
 from util import dot_graph
+from sim import sim_data
 
 
-def dummy_data():
-    x = np.random.randn(100)
-    x *= 0.2
-    x += 5
-
-    return x
-
-
-def iteration(inside_probability, debug=False):
-    interval = interval_estimate.estimate_interval(dummy_data(), inside_probability, debug=debug)[0]
-    return interval[0] <= 5 <= interval[1]
+def iteration(values, mean, inside_probability, debug=False):
+    interval = interval_estimate.estimate_interval(values, inside_probability, debug=debug)[0]
+    return interval[0] <= mean <= interval[1]
 
 
 def evaluate_interval(inside_probability, iterations=100):
     positive_count = 0
 
-    for _ in range(iterations):
-        if iteration(inside_probability):
+    data = sim_data.SimData.load()
+    batch_size = 100
+    for i in range(iterations):
+        values = data.values[i * batch_size:i * batch_size + batch_size]
+
+        if iteration(values, data.mean, inside_probability):
             positive_count += 1
 
     print()
@@ -44,7 +41,7 @@ def make_graph(iterations=100):
 
     dg = dot_graph.DotGraph(x, y)
     dg.show()
-    dg.save("output/interval_mean_estimates.png")
+    dg.save("output/mean_interval.png")
 
 
 if __name__ == "__main__":

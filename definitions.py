@@ -8,3 +8,5 @@ plot_width = 7  # in inches
 plot_aspect_ratio = 0.75
 plot_height = plot_aspect_ratio * plot_width
 plot_dpi = 300
+
+path_saved_sim_data = "output/sim_data.json"

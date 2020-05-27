@@ -6,7 +6,8 @@ from calc import interval_estimate
 
 
 def make_graph(iterations=100):
-    data = sim_data.SimData(iterations, 250)
+    data = sim_data.SimData.load()
+    data.calc(iterations)
 
     inside_probability = 0.80
     interval = interval_estimate.estimate_interval(data.values, inside_probability)[0]

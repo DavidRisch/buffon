@@ -25,9 +25,9 @@ def estimate_interval(data, inside_probability, debug=False):
     c_1 = chi2.ppf(error_probability / 2, degrees_of_freedom)
     c_2 = chi2.ppf(1 - error_probability / 2, degrees_of_freedom)
 
-    var_l = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_2)
-    var_h = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_1)
-    var_l, var_h = map(
+    sigma_l = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_2)
+    sigma_h = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_1)
+    sigma_l, sigma_h = map(
         lambda c_n: math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_n),
         [c_2, c_1])  # order is intentionally inverted
 
@@ -39,9 +39,9 @@ def estimate_interval(data, inside_probability, debug=False):
         print("c", c, "  mean_l", mean_l, "  mean_h", mean_h)
         inside = sum([1 for x in data if mean_l <= x <= mean_h])
         print("inside", inside, "  inside/n", inside / n)
-        print("c", c, "  var_l", var_l, "  var_h", var_h)
+        print("c", c, "  sigma_l", sigma_l, "  sigma_h", sigma_h)
 
-    return [mean_l, mean_h], [var_l, var_h]
+    return [mean_l, mean_h], [sigma_l, sigma_h]
 
 
 if __name__ == "__main__":

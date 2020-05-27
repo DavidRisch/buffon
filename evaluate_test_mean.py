@@ -3,25 +3,21 @@
 import numpy as np
 from calc import test_mean
 from util import dot_graph
+from sim import sim_data
 
 
-def dummy_data():
-    x = np.random.randn(100)
-    x *= 0.2
-    x += 5
-
-    return x
-
-
-def iteration(error_probability, debug=False):
-    return test_mean.test_mean(dummy_data(), 5, error_probability, debug)
+def iteration(values, mean, error_probability, debug=False):
+    return test_mean.test_mean(values, mean, error_probability, debug)
 
 
 def evaluate_test_mean(error_probability, iterations=100):
     positive_count = 0
 
-    for _ in range(iterations):
-        if iteration(error_probability):
+    data = sim_data.SimData.load()
+    batch_size = 100
+    for i in range(iterations):
+        values = data.values[i * batch_size:i * batch_size + batch_size]
+        if iteration(values, data.mean, error_probability):
             positive_count += 1
 
     print()
@@ -43,7 +39,7 @@ def make_graph(iterations=100):
 
     dg = dot_graph.DotGraph(x, y)
     dg.show()
-    dg.save("output/parameter_tests.png")
+    dg.save("output/mean_test.png")
 
 
 if __name__ == "__main__":
