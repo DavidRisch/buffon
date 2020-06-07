@@ -6,11 +6,13 @@ from scipy.stats import t as t_student
 from scipy.stats import chi2
 
 
-def estimate_interval(data, inside_probability, debug=False):
+def estimate_interval(data, inside_probability, make_intentional_error=False, debug=False):
     n = len(data)
     degrees_of_freedom = n - 1
+    if make_intentional_error:
+        degrees_of_freedom = n
     observed_mean = sum(data) / n
-    estimated_std_deviation = math.sqrt(1 / (n - 1) * sum([(point - observed_mean) ** 2 for point in data]))
+    estimated_std_deviation = math.sqrt(1 / degrees_of_freedom * sum([(point - observed_mean) ** 2 for point in data]))
 
     # confidence interval: mean
     c = t_student.ppf((inside_probability + 1) / 2, degrees_of_freedom)  # ppf = "Percent point function"
@@ -25,8 +27,6 @@ def estimate_interval(data, inside_probability, debug=False):
     c_1 = chi2.ppf(error_probability / 2, degrees_of_freedom)
     c_2 = chi2.ppf(1 - error_probability / 2, degrees_of_freedom)
 
-    sigma_l = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_2)
-    sigma_h = math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_1)
     sigma_l, sigma_h = map(
         lambda c_n: math.sqrt(degrees_of_freedom * (estimated_std_deviation ** 2) / c_n),
         [c_2, c_1])  # order is intentionally inverted

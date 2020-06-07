@@ -4,11 +4,13 @@ import math
 from scipy.stats import t as t_student
 
 
-def test_mean(data, target_mean, error_probability, debug=False):
+def test_mean(data, target_mean, error_probability, make_intentional_error, debug=False):
     n = len(data)
     degrees_of_freedom = n - 1
+    if make_intentional_error:
+        degrees_of_freedom = n
     observed_mean = sum(data) / n
-    estimated_std_deviation = math.sqrt(1 / (n - 1) * sum([(point - observed_mean) ** 2 for point in data]))
+    estimated_std_deviation = math.sqrt(1 / degrees_of_freedom * sum([(point - observed_mean) ** 2 for point in data]))
 
     c = t_student.ppf(1 - error_probability / 2, degrees_of_freedom)
 
