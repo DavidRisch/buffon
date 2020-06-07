@@ -108,7 +108,7 @@ Mannheim, Juni 2020
 		\begin{align}
 			P &= \frac{2l}{\pi d}\\ \nonumber
 			&= \frac{2l}{\pi 2l}\\ \nonumber
-			&= \pi \nonumber
+			&= \frac{1}{\pi} \nonumber
 		\end{align}
 		
 		Somit ist es möglich mithilfe eines Monte-Carlo-Verfahrens den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern.
@@ -126,7 +126,12 @@ Mannheim, Juni 2020
 				\label{fig:needels}
 			\end{figure}
 
-			Um zu prüfen, ob eine Nadel eine Linie schneidet wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie.
+			Um zu prüfen, ob eine Nadel eine Linie schneidet wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
+			\texttt{d = (x + line\_dist / 2) \% line\_dist;\\
+				dist\_to\_line = min(d, line\_dist - d);\\
+				x\_extent = abs(math.cos(angle)) * (needle\_length / 2);\\
+				if x\_extent >= dist\_to\_line:}\\
+			\\
 			Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
 			Für die Statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden.
@@ -232,14 +237,15 @@ Mannheim, Juni 2020
 			\label{fig_var_interval_dot}
 		\end{figure}
 
+\section{Lazzarini}
 
 \section*{Ergebnisse und Diskussion}
 
 \begin{thebibliography}{99}
-	\bibitem{MathWorld}Weisstein, Eric W.: {\it Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/BuffonsNeedleProblem.html
-	\bibitem{Python}Python: https://www.python.org/
-	\bibitem{Pillow}Pillow: https://pillow.readthedocs.io/en/stable/
-	\bibitem{matplotlib}matplotlib: https://matplotlib.org/
+	\bibitem{MathWorld}Weisstein, Eric W.: {\textit Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. \url{https://mathworld.wolfram.com/BuffonsNeedleProblem.html}
+	\bibitem{Python}Python: \url{https://www.python.org/}
+	\bibitem{Pillow}Pillow: \url{https://pillow.readthedocs.io/en/stable/}
+	\bibitem{matplotlib}matplotlib: \url{https://matplotlib.org/}
 	\bibitem{MathWorld}Weisstein, Eric W.: {\textit Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. \url{https://mathworld.wolfram.com/BuffonsNeedleProblem.html}
 \end{thebibliography}
 
