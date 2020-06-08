@@ -12,3 +12,4 @@ plot_height = plot_aspect_ratio * plot_width
 plot_dpi = 300
 
 path_saved_sim_data = "output/sim_data.json"
+path_saved_sim_data_hist = "output/sim_data_hist.json"
