@@ -2,6 +2,6 @@
 
 from sim import sim_data
 
-sd = sim_data.SimData(100)
-sd.generate(100000)
+sd = sim_data.SimData(1000)
+sd.generate(20 * (10 ** 5))
 sd.save()

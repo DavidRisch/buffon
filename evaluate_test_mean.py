@@ -5,16 +5,7 @@ from calc import test_mean
 from util import dot_graph
 from sim import sim_data
 
-mean = 5
-sigma = 1
-
-
-def dummy_data():  # TODO: use sim_data
-    x = np.random.randn(20)
-    x *= sigma
-    x += mean
-
-    return x
+data = None
 
 
 def iteration(values, mean, error_probability, make_intentional_error, debug=False):
@@ -26,11 +17,11 @@ def evaluate_test_mean(inside_probability, iterations=100):
     positive_count_wrong = 0
 
     for i in range(iterations):
-        values = dummy_data()
+        values = data.values[i * 20:(i + 1) * 20]
 
-        if iteration(values, mean, inside_probability, make_intentional_error=False):
+        if iteration(values, data.mean, inside_probability, make_intentional_error=False):
             positive_count_right += 1
-        if iteration(values, mean, inside_probability, make_intentional_error=True):
+        if iteration(values, data.mean, inside_probability, make_intentional_error=True):
             positive_count_wrong += 1
 
     print()
@@ -60,4 +51,6 @@ def make_graph(iterations=100):
 
 
 if __name__ == "__main__":
+    data = sim_data.SimData.load()
+    print("len(data.values)", len(data.values))
     make_graph(10 ** 5)
