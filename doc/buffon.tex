@@ -48,6 +48,9 @@ hidelinks,
 linktoc=all
 ]{hyperref}
 
+\usepackage[list=false, font=large, labelfont=bf,
+labelformat=brace, position=top, belowskip=0mm, skip=0mm]{subcaption}
+
 \clubpenalty = 10000
 \widowpenalty = 10000
 \displaywidowpenalty = 10000
@@ -117,6 +120,7 @@ Mannheim, Juni 2020
 		Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Außerdem enthält das Programm Funktionen für den Parameter- und Intervalltest.
 
 		\subsubsection*{Die Simulation}
+			\label{chap_sim_results}
 			Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, die Breite zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert wo zusätzlich gezählt wird wie viele Nadeln eine Linie schneiden.
 
 			\begin{figure}[htb]
@@ -141,8 +145,8 @@ Mannheim, Juni 2020
 
 			\begin{figure}[htb]
 				\centering
-				\includegraphics[width=0.45\textwidth]{images/histogram_10000.png}
-				\caption{Histogramm von 10000 Simulationen mit 100 Nadeln}
+				\includegraphics[width=0.45\textwidth]{images/histogram_1000_no_interval_3.png}
+				\caption{Histogramm von 1000 Simulationen mit 100 Nadeln}
 				\label{fig:hist}
 			\end{figure}
 
@@ -150,20 +154,20 @@ Mannheim, Juni 2020
 
 \section{Konfidenzintervalle}
 	\subsection{Überblick}
-	\label{chap_sim_results} %todo: real location
+		Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe treffen zu können.
 
-	Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe treffen zu können. In Abbildung \ref{fig_mean_interval_hist} ist das $80\%$ Konfidenzintervall des Mittelwerts dargestellt. In diesem Fall ist das Intervall korrekt, da der wahre Mittelwert, der Hochpunkt der orangen Kurve, innerhalb des Intervalls liegt.
-	\begin{figure}[h]%
-		\centering
-		\includegraphics[width=0.9\columnwidth]{images/histogram_50.png}
-		\caption{Eine Normalverteilung (orange), $50$ nach dieser Verteilung verteilte Werte (blau) und ein aus diesen berechnetes $80\%$ Konfidenzintervall des Mittelwerts (schwarz)}
-		\label{fig_mean_interval_hist}
-	\end{figure}
+		In Abbildung \ref{fig_mean_interval_hist} ist das $80\%$ Konfidenzintervall des Mittelwerts dargestellt. In diesem Fall ist das Intervall korrekt, da der wahre Mittelwert, der Hochpunkt der orangen Kurve, innerhalb des Intervalls liegt.
+		\begin{figure}[h]%
+			\centering
+			\includegraphics[width=0.9\columnwidth]{images/histogram_50_interval_1.png}
+			\caption{Eine Normalverteilung (orange), $50$ nach dieser Verteilung verteilte Werte (blau) und ein aus diesen berechnetes $80\%$ Konfidenzintervall des Mittelwerts (schwarz)}
+			\label{fig_mean_interval_hist}
+		\end{figure}
 	\subsection{Herleitung des Mittelwerts Konfidenzintervalls}
 		\label{chap_interval_mean_math}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$.
 		Ziel ist die Bestimmung von $c_1$ und $c_2$ sodass
-		\begin{equation} \label{eq_intervall_norm}
+		\begin{equation} \label{eq_interval_norm}
 		P(c_1 \le \overline{X} \le c_2) = \gamma
 		\end{equation}
 		gilt.
@@ -172,11 +176,11 @@ Mannheim, Juni 2020
 		\overline{x} &=  \frac{1}{n} \sum_1^n{x_i} , \\
 		s &= \frac{1}{n-1} \sum_1^n{(x_i - \overline{x})^2} .
 		\end{align}
-		Um Gleichung \ref{eq_intervall_norm} umformen zu können wird eine weitere Zufallsvariable eingeführt:
-		\begin{equation} \label{eq_intervall_t}
+		Um Gleichung \ref{eq_interval_norm} umformen zu können wird eine weitere Zufallsvariable eingeführt:
+		\begin{equation} \label{eq_interval_t}
 		T = \frac{\overline{X} - \mu}{\frac{S}{\sqrt{n}}} .
 		\end{equation}
-		Gleichung \ref{eq_intervall_norm} kann jetzt mit $T$ umformuliert werden:
+		Gleichung \ref{eq_interval_norm} kann jetzt mit $T$ umformuliert werden:
 		\begin{align}
 		\gamma &= P(-c \le T \le c) \\ \nonumber
 		\gamma &= P(T \le c) - P(T \le -c) \\ \nonumber
@@ -185,7 +189,7 @@ Mannheim, Juni 2020
 		P(T \le c) &= \frac{\gamma + 1}{2} .
 		\end{align}
 		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek scipy.
-		Aus der Definition der Zufallsvariable $T$ in Gleichung \ref{eq_intervall_t} ergibt sich für die Grenzen des Intervalls:
+		Aus der Definition der Zufallsvariable $T$ in Gleichung \ref{eq_interval_t} ergibt sich für die Grenzen des Intervalls:
 		\begin{equation}
 		c_1 = \overline{x} - \frac{cs}{\sqrt{n}} \mbox{ und } c_2 = \overline{x} + \frac{cs}{\sqrt{n}}.
 		\end{equation}
@@ -193,7 +197,7 @@ Mannheim, Juni 2020
 	\subsection{Herleitung des Varianz Konfidenzintervalls}
 		\label{chap_interval_var_math}
 		Die Herleitung des Varianz Intervalls verläuft analog zu dem Konfidenzintervall  des Mittelwerts. Anstelle einer t-Verteilung wird eine Chi-Quadrat-verteilte Zufallsvariable eingeführt:
-		\begin{equation} \label{eq_intervall_z}
+		\begin{equation} \label{eq_interval_z}
 		Z = (n-1)\frac{S^2}{\sigma^2} .
 		\end{equation}
 		\begin{align}
@@ -203,43 +207,89 @@ Mannheim, Juni 2020
 		P(Z \le c_2) &= \frac{1}{2} (1+\gamma)
 		\end{align}
 		$P(T \le c_{1,2})$ entspricht jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann durch \texttt{scipy.stats.chi2.ppf(x, N)} berechnet werden.
-		Aus der Definition der Zufallsvariable $Z$ in Gleichung \ref{eq_intervall_z} ergibt sich das Konfidenzintervall der Varianz:
+		Aus der Definition der Zufallsvariable $Z$ in Gleichung \ref{eq_interval_z} ergibt sich das Konfidenzintervall der Varianz:
 		\begin{equation}
 		(n-1)  \frac{s^2}{c_2} \le \sigma^2 \le (n-1)  \frac{s^2}{c_1}.
 		\end{equation}
 
 	\subsection{Empirischer Beweis}
-		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_intervall_t} und \ref{eq_intervall_z} eingeführte  Zufallsvariablen $T$ und $Z$ würde genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
+		\label{chap_interval_prove}
+		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführte  Zufallsvariablen $T$ und $Z$ würde genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
 
 		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung wurde in Python implementiert und können so beliebig oft mit den in Kapitel \ref{chap_sim_results} erstellten Daten durchgeführt werden.
 
-		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 100$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartenden Mittelwerts und die Varianz berechnet  werden:
+		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartenden Mittelwerts und die Varianz berechnet  werden:
 		\begin{align}
 		E(X) &= n p , \\
 		\sigma &= n p (1-p) , \nonumber \\
 		Var(X) &= \sigma^2 = (n p (1-p))^2 .
 		\end{align}
 
-		Es wird überprüft, ob der Erwartungswert und die Varianz innerhalb oder außerhalb des geschätzten Intervalls liegen. Dieser Vorgang wird in $1000$ Durchläufe wiederholt, dabei wird der Anteil an korrekten Intervalle gezählt. Das Verhältnis zwischen $\gamma$ und dem tatsächlichen Anteil an korrekten Intervallen ist in Abbildung \ref{fig_mean_interval_dot} und \ref{fig_var_interval_dot} zu sehen. Dabei liegen Punkte für alle Werte von $\gamma$ auf einer Ursprungsgerade mit Steigung $1$, dies bestätigt die Korrektheit der Formeln zur Berechnung des Intervalls. Die leichten Abweichungen der einzelnen Punkte sind durch die begrenzte Anzahl an Durchläufen und den recht kleinen Stichproben zu erklären.
+		Es wird überprüft, ob der Erwartungswert und die Varianz innerhalb oder außerhalb des geschätzten Intervalls liegen.
 
+		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt, dabei wird der Anteil an korrekten Intervalle gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet, wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
 
-		\begin{figure}[H]
+		Um zu zeigen, dass diese Methode der Überprüfung funktioniert wurde nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $n$ Freiheitsgrade angenommen (richtig sind $n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse liegen sehr nahe an den eigentlich richtigen liegen.
+
+		Die Ergebnisse sind in Abbildung \ref{fig_mean_interval_dot} und \ref{fig_var_interval_dot} dargestellt. Dabei ist klar zu erkennen, dass die mit den richtigen Formeln berechneten Ergebnisse nahe an $1$ liegen und die mit den falschen Formeln berechneten Ergebnisse deutlich von $1$ abweichen. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
+
+		\begin{figure}[H]%
 			\centering
-			\includegraphics[width=0.9\columnwidth]{images/mean_interval.png}
-			\caption{Mittelwerts Intervall: Verhältnis zwischen $\gamma$ (x-Achse) und dem tatsächlichen Anteil an korrekt geschätzten Intervallen (y-Achse) für $1000$ Durchläufe je $\gamma$ mit Stichprobenumfang $100$}
-			\label{fig_mean_interval_dot}
+			\begin{subfigure}[c]{1\columnwidth}
+				\includegraphics[width=0.9\columnwidth]{images/mean_interval.png}
+				\caption{Mittelwerts Konfidenzintervall}
+				\label{fig_mean_interval_dot}
+			\end{subfigure}
+			\begin{subfigure}[c]{1\columnwidth}
+				\includegraphics[width=0.9\columnwidth]{images/var_interval.png}
+				\caption{Varianz Konfidenzintervall}
+				\label{fig_var_interval_dot}
+			\end{subfigure}
+			\caption{Abweichung des tatsächlichen Anteils an korrekt geschätzten Intervallen von dem Konfidenzniveau (y-Achse) für verschiedene Konfidenzniveaus (x-Achse) von dem idealen Wert (schwarz) für Ergebnisse der richtigen Formeln (blau) und der falschen Formeln (gelb).}
 		\end{figure}
 
+
+\section{Parametertests}
+	\subsection{Überblick}
+		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden um Angaben eines Herstellers zu überprüfen.
+	\subsection{Herleitung des Mittelwerts Parametertests}
+		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
+
+		Das Ziel ist die Entscheidung zwischen einer Nullhypothese $H_0$ ($\mu = \mu_0$) und einer Alternativhypothese $H_1$ ($\mu \ne \mu_0$).
+
+		Das Vorgehen ähnelt dem Schätzen eines Mittelwerts Konfidenzintervalls. Es wird die Zufallsvariable $T$ eingeführt (Gleichung \ref{eq_interval_t}), mit dieser kann der Test formuliert werden als:
+		\begin{equation}
+		P(-c \le T \le c) = \gamma .
+		\end{equation}
+		$c$ wird wieder aus den Quantilen der t-Verteilung berechnet. Es wird aber $c$ nicht aus $T$ in $X$ rücktransformiert um die Grenzen des Konfidenzintervalls zu erhalten, sondern der Mittelwert der Stichprobe wird nach $T$ transformiert:
+		\begin{equation}
+		\hat{t} = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}} .
+		\end{equation}
+
+		Dann gilt mit einer Wahrscheinlichkeit $\gamma$, dass $H_0$ wahr ist, wenn
+		\begin{equation}
+		-c \le \hat{t} \le c
+		\end{equation}
+		gilt, andernfalls ist $H_1$ wahr.
+
+		Mit einer höheren Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$ sinkt die Wahrscheinlichkeit $H_0$ fälschlich abzulehnen, dafür steigt die Wahrscheinlichkeit $H_0$ fälschlich anzunehmen.
+	\subsection{Empirischer Beweis}
+		Das die hergeleiteten Formeln gelten ist auch hier nicht sofort plausibel.
+
+		Das Vorgehen entspricht im Wesentlichen dem aus Kapitel \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
+
+		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} zu sehen. Die Ergebnisse der richtigen Formeln liegen wieder nahe an $1$ und die der falschen Formeln weichen deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
+
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.9\columnwidth]{images/var_interval.png}
-			\caption{Varianz Intervall: Verhältnis zwischen $\gamma$ (x-Achse) und dem tatsächlichen Anteil an korrekt geschätzten Intervallen (y-Achse) für $1000$ Durchläufe je $\gamma$ mit Stichprobenumfang $100$}
-			\label{fig_var_interval_dot}
+			\includegraphics[width=0.9\columnwidth]{images/mean_test.png}
+			\caption{Abweichung des Anteils negativer Parametertests von der Irrtumswahrscheinlichkeit (y-Achse) für verschiedene Irrtumswahrscheinlichkeiten (x-Achse) von dem idealen Wert (schwarz) für Ergebnisse der richtigen Formeln (blau) und der falschen Formeln (gelb).}
+			\label{fig_test_mean_dot}
 		\end{figure}
 
 \section{Experimenteller Test von Lazzarini}
 	Es gab mehrere Versuche durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$ anzunähern. Mario Lazzarini soll 1901 das umfangreichste Experiment durchgeführt haben. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf 6 Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
-	
+
 	Wie wahrscheinlich Lazzarinis Ergebnis war, lässt sich mit Hilfe eines Intervalltests bestimmen. ...
 \section*{Ergebnisse und Diskussion}
 

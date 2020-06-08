@@ -30,9 +30,9 @@ class SimData:
             result = self.sim.simulate(self.needle_count)
             self.values.append(result.needles_on_line)
 
-    def calc(self, iterations=None):
+    def calc(self, iterations=None, offset=0):
         if iterations is not None:
-            self.values = self.values[:iterations]
+            self.values = self.values[offset:offset + iterations]
         self.avg = sum(self.values) / len(self.values)
         self.p = self.sim.probability()
         self.mean = self.needle_count * self.p

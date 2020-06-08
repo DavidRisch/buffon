@@ -22,7 +22,6 @@ class Histogram:
         bins, bin_width = self.generate_bins(self.min_value, self.max_value, bin_number)
 
         _, _, patches = self.ax.hist(data, bins=bins, color=color_histogram_normal)
-        self.ax.grid()
 
         if interval is not None:
             for border in interval:
@@ -58,8 +57,6 @@ if __name__ == "__main__":
     x = np.random.randn(N_points)
     x *= 0.2
     x += math.pi
-
-    # print(x)
 
     hist = Histogram(x, interval=[2.8, 3])
     hist.show()
