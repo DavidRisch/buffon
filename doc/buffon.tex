@@ -282,32 +282,42 @@ Mannheim, Juni 2020
 		\end{figure}
 
 \section{Experimenteller Test von Lazzarini}
-	Es gab mehrere Versuche durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$ anzunähern. Mario Lazzarini soll 1901 das umfangreichste Experiment durchgeführt haben. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf sechs Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
+	Es gab mehrere Versuche durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$ anzunähern. Mario Lazzarini soll 1901 das zur Zeit umfangreichste Experiment durchgeführt haben. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf sechs Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
 
-	Wie glaubwürdig Lazzarinis Ergebnis war, lässt sich mit Hilfe eines Konfidenzintervalls bestimmen. Hierbei wird die Genauigkeit wie folgt berechnet:
+	Wie glaubwürdig Lazzarinis Ergebnis war, lässt sich mithilfe eines Konfidenzintervalls bestimmen.
+	In Lazzarinis Versuch beträgt die geschätzte Standardabweichung $s = 0.249141$.
+	Für ein Konfidenzniveau von $\gamma = 0.95$ ergibt sich
 	\begin{equation}
-	\Delta \mu = c_2 - \overline{x} = \frac{cs}{\sqrt{n}}
+	P(T \le c) = \frac{\gamma + 1}{2} = \frac{0.95 + 1}{2} = 0.975 .
 	\end{equation}
-	In Lazzarinis Versuch beträgt die Standartabweichung $s = 0.249141$.
-	Für ein Konfidenzniveau von $\gamma = 0.95$ ergibt sich folgende Gleichung:
-	\begin{equation}
-	P(T \le c) = \frac{\gamma + 1}{2} = \frac{0.95 + 1}{2} = 0.975
-	\end{equation}
-	Mit $N = n - 1 = 3407$ Freiheitsgraden erhält man $c = 1,96066$.
-	Somit erreichte Lazzarini bei seinem Experiment eine Genauigkeit von
+	Mit $N = n - 1 = 3407$ Freiheitsgraden erhält man aus der t-Verteilung $c = 1,96066$.
+	Somit erreichte Lazzarini bei seinem Experiment zu $95\%$ eine Genauigkeit von
 	\begin{align}
 	\Delta \mu &= \frac{cs}{\sqrt{n}} \\
 	&= \frac{1,96066 \cdot 0.249141}{\sqrt{3408}} \\ \nonumber
 	&= 8,367538 \cdot 10 ^{-3} \nonumber
 	\end{align}
-	für den Mittelwert. Die Genauigkeit für den $\pi$ Wert ist dann:
+	oder schlechter für den Mittelwert. Die zu erwartende Genauigkeit für den Wert von $\pi$ ist dann:
 	\begin{align}
 	\Delta x &= \pi - \frac{2 \cdot x}{P + \Delta \mu} \\
 	&= \pi - \frac{2 \cdot \frac{5}{6}}{\frac{1808}{3408} + 8,367538 \cdot 10 ^{-3}} \\ \nonumber
-	&= 0.048781 \nonumber
+	&= 0.048781 \nonumber .
 	\end{align}
 	Das ist deutlich ungenauer als $\Delta x = 0,5 * 10^{-6}$, was sechs Nachkommastellen entsprechen würde.
-	Also ist der ermittelte Wert für $\pi$ von Lazzarini ab der dritten Nachkommastelle bedeutungslos.
+	Die Genauigkeit von dem ermittelte Wert für $\pi$ von Lazzarini von 6 Nachkommastellen war also nicht zu erwarten.
+	
+	Dabei könnte es sich um bloßen Zufall handeln. Die merkwürdige Anzahl an Nadelwürfen ($3408$) ist aber besonders verdächtig. Sein Ergebnis entspricht exakt der auch zu diesem Zeitpunkt bekannten Approximation $\pi \approx \frac{355}{133}$.
+	Um diese Approximation mit dem von ihm verwendeten Verhältnis ${\tfrac {l}{d}={\tfrac {5}{6}}}$ zu erhalten muss das Verhältnis von Nadeln, die eine Linie schneiden, zu allen Nadeln exakt
+	\begin{equation}
+	\frac{5}{3} \pi  \approx \frac{5}{3} \frac{355}{133} = \frac{113}{213}
+	\end{equation}
+	sein.
+	Die Anzahl an Würfen ist genau ein ganzes Vielfaches des nenners:
+	\begin{equation}
+	16 \cdot 213 = 3048
+	\end{equation}
+	Dies spricht stark dafür, dass Lazzarini die Parameter des Experiments mit dem direkten Ziel eine schon bekannte Approximation zu treffen ausgelegt hat oder die Daten sogar frei erfunden hat. \cite{Badger}
+	
 	
 \section*{Ergebnisse und Diskussion}
 
