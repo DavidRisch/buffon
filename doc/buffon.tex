@@ -87,66 +87,64 @@ Mannheim, Juni 2020
 
 \section*{Einleitung}
 
-\section{Material und Methoden}
+\section{Buffonsches Nadelproblem}
+	\label{chap_buffon_needle}
+	Bei dem Buffonschen Nadelproblem, das erstmals von Buffon im Jahr 1733 behandelt wurde, geht es um die Wahrscheinlichkeit, dass eine Nadel, die auf eine Fläche mit parallelen Linien gleichen Abstands geworfen wird, eine Linie schneidet.
+	
+	Dieses Experiment beinhaltet eine Nadel der Länge $l$, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand $d$ fällt. Für eine kurze Nadel, also $l < d$, lässt sich die Wahrscheinlichkeit wie folgt berechnen: \cite{MathWorld}
 
-	\subsection{Buffonsches Nadelproblem}
-		\label{chap_buffon_needle}
-		Bei dem Buffonschen Nadelproblem, das erstmals von Buffon im Jahr 1733 behandelt wurde, geht es um die Wahrscheinlichkeit, dass eine Nadel, die auf eine Fläche mit parallelen Linien gleichen Abstands geworfen wird, eine Linie schneidet.
+	\begin{align}
+		P(x) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ \nonumber
+		&= \frac{l}{2 \pi d} 4 \int_{0}^{\pi/2}\cos{\theta}d\theta\\ \nonumber
+		&= \frac{2l}{\pi d}\\ \nonumber
+		&= \frac{2x}{\pi} \nonumber .
+	\end{align}
+	
+	Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu
+	
+	\begin{align}
+		P &= \frac{2l}{\pi d}\\ \nonumber
+		&= \frac{2l}{\pi (2l)}\\ \nonumber
+		&= \frac{1}{\pi} \nonumber .
+	\end{align}
+	
+	Somit ist es möglich durch viele Durchführungen den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern (Monte-Carlo-Simulation).
+
+\section{Implementierung des Experiments}
+	Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
+
+	\subsection*{Die Simulation}
+		\label{chap_sim_results}
+		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, die Breite zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert, zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
+
+		\begin{figure}[htb]
+			\centering
+			\includegraphics[width=0.45\textwidth]{images/needels.png}
+			\caption{Ein Ergebnis der Simulation. Grüne Striche stellen Nadeln dar, die eine Linie schneiden. Rote Striche sind Nadeln, die keine Linie schneiden.}
+			\label{fig:needels}
+		\end{figure}
+
+		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
+		\texttt{d = (x + line\_dist / 2) \% line\_dist;\\
+			dist\_to\_line = min(d, line\_dist - d);\\
+			x\_extent = abs(math.cos(angle)) * (needle\_length / 2);\\
+			if x\_extent >= dist\_to\_line:}\\
+		\\
+		Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
+
+		Für die statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der andren Module des Programms durchgeführt werden.
+
+	\subsection*{Die Auswertung}
+		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. Ein Ergebnis ist die Anzahl der Nadeln, die eine Linie schneiden. In Abbildung \ref{fig:hist} sieht man, dass die Ergebnisse normalverteilt sind.
+
+		\begin{figure}[htb]
+			\centering
+			\includegraphics[width=0.45\textwidth]{images/histogram_1000_no_interval_3.png}
+			\caption{Histogramm aus 1000 Simulationen mit 100 Nadeln (blau) und Normalverteilung mit gleichen Parametern (orange)}
+			\label{fig:hist}
+		\end{figure}
 		
-		Dieses Experiment beinhaltet eine Nadel der Länge $l$, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand $d$ fällt. Für eine kurze Nadel, also $l < d$, lässt sich die Wahrscheinlichkeit wie folgt berechnen: \cite{MathWorld}
-
-		\begin{align}
-			P(x) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ \nonumber
-			&= \frac{l}{2 \pi d} 4 \int_{0}^{\pi/2}\cos{\theta}d\theta\\ \nonumber
-			&= \frac{2l}{\pi d}\\ \nonumber
-			&= \frac{2x}{\pi} \nonumber .
-		\end{align}
-		
-		Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu
-		
-		\begin{align}
-			P &= \frac{2l}{\pi d}\\ \nonumber
-			&= \frac{2l}{\pi (2l)}\\ \nonumber
-			&= \frac{1}{\pi} \nonumber .
-		\end{align}
-		
-		Somit ist es möglich durch viele Durchführungen den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern (Monte-Carlo-Simulation).
-
-	\subsection{Implementierung des Experiments}
-		Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
-
-		\subsubsection*{Die Simulation}
-			\label{chap_sim_results}
-			Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, die Breite zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert, zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
-
-			\begin{figure}[htb]
-				\centering
-				\includegraphics[width=0.45\textwidth]{images/needels.png}
-				\caption{Ein Ergebnis der Simulation. Grüne Striche stellen Nadeln dar, die eine Linie schneiden. Rote Striche sind Nadeln, die keine Linie schneiden.}
-				\label{fig:needels}
-			\end{figure}
-
-			Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
-			\texttt{d = (x + line\_dist / 2) \% line\_dist;\\
-				dist\_to\_line = min(d, line\_dist - d);\\
-				x\_extent = abs(math.cos(angle)) * (needle\_length / 2);\\
-				if x\_extent >= dist\_to\_line:}\\
-			\\
-			Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
-
-			Für die statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der andren Module des Programms durchgeführt werden.
-
-		\subsubsection*{Die Auswertung}
-			Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. Ein Ergebnis ist die Anzahl der Nadeln, die eine Linie schneiden. In Abbildung \ref{fig:hist} sieht man, dass die Ergebnisse normalverteilt sind.
-
-			\begin{figure}[htb]
-				\centering
-				\includegraphics[width=0.45\textwidth]{images/histogram_1000_no_interval_3.png}
-				\caption{Histogramm aus 1000 Simulationen mit 100 Nadeln (blau) und Normalverteilung mit gleichen Parametern (orange)}
-				\label{fig:hist}
-			\end{figure}
-			
-			Weitere Methoden zur Auswertung werden in den nächsten Kapiteln diskutiert.
+		Weitere Methoden zur Auswertung werden in den nächsten Kapiteln diskutiert.
 
 \section{Konfidenzintervalle}
 	\subsection{Überblick}
@@ -286,7 +284,31 @@ Mannheim, Juni 2020
 \section{Experimenteller Test von Lazzarini}
 	Es gab mehrere Versuche durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$ anzunähern. Mario Lazzarini soll 1901 das umfangreichste Experiment durchgeführt haben. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf 6 Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
 
-	Wie wahrscheinlich Lazzarinis Ergebnis war, lässt sich mit Hilfe eines Intervalltests bestimmen. ...
+	Wie glaubwürdig Lazzarinis Ergebnis war, lässt sich mit Hilfe eines Konfidenzintervalls bestimmen. Hierbei wird die Genauigkeit wie folgt berechnet:
+	\begin{equation}
+	\Delta \mu = c_2 - \overline{x} = \frac{cs}{\sqrt{n}}
+	\end{equation}
+	In Lazzarinis Versuch beträgt die Standartabweichung $s = 0.249141$.
+	Für ein Konfidenzniveau von $\gamma = 0.95$ ergibt sich folgende Gleichung:
+	\begin{equation}
+	P(T \le c) = \frac{\gamma + 1}{2} = \frac{0.95 + 1}{2} = 0.975
+	\end{equation}
+	Mit $N = n - 1 = 3407$ Freiheitsgraden erhält man $c = 1,96066$.
+	Somit erreichte Lazzarini bei seinem Experiment eine Genauigkeit von
+	\begin{align}
+	\Delta \mu &= \frac{cs}{\sqrt{n}} \\
+	&= \frac{1,96066 \cdot 0.249141}{\sqrt{3408}} \\ \nonumber
+	&= 8,367538 \cdot 10 ^{-3} \nonumber
+	\end{align}
+	für den Mittelwert. Die Genauigkeit für den $\pi$ Wert ist dann:
+	\begin{align}
+	\Delta x &= \pi - \frac{2 \cdot x}{P + \Delta \mu} \\
+	&= \pi - \frac{2 \cdot \frac{5}{6}}{\frac{1808}{3408} + 8,367538 \cdot 10 ^{-3}} \\ \nonumber
+	&= 0.048781 \nonumber
+	\end{align}
+	Das ist deutlich ungenauer als $\Delta x = 0,5 * 10^{-6}$, was 6 Nachkommastellen entsprechen würde.
+	Also ist der ermittelte Wert für $\pi$ von Lazzarini ab der zweiten Nachkommastelle bedeutungslos.
+	
 \section*{Ergebnisse und Diskussion}
 
 \begin{thebibliography}{99}
