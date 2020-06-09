@@ -93,35 +93,31 @@ Mannheim, Juni 2020
 		\label{chap_buffon_needle}
 		Bei dem Buffonschen Nadelproblem, das erstmals von Buffon im Jahr 1733 behandelt wurde, geht es um die Wahrscheinlichkeit, dass eine Nadel, die auf eine Fläche mit parallelen Linien gleichen Abstands geworfen wird, eine Linie schneidet.
 		
-		Dieses Experiment beinhaltet eine Nadel der Länge l, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand d fällt. Für eine kurze Nadel, also l < d, lässt sich die Wahrscheinlichkeit wie folgst berechnen: \cite{MathWorld}
-		
-		\begin{equation}
-			x \equiv \frac{l}{d}
-		\end{equation}
-		
+		Dieses Experiment beinhaltet eine Nadel der Länge $l$, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand $d$ fällt. Für eine kurze Nadel, also $l < d$, lässt sich die Wahrscheinlichkeit wie folgt berechnen: \cite{MathWorld}
+
 		\begin{align}
-			P(x) &= \int_{0}^{2\pi}\frac{l|\cos{\theta}}{d}\frac{d\theta}{2\pi}\\ \nonumber
-			&= \frac{2l}{\pi d}\int_{0}^{2\pi}\cos{\theta}d\theta\\ \nonumber
+			P(x) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ \nonumber
+			&= \frac{l}{2 \pi d} 4 \int_{0}^{\pi/2}\cos{\theta}d\theta\\ \nonumber
 			&= \frac{2l}{\pi d}\\ \nonumber
-			&= \frac{2x}{\pi} \nonumber
+			&= \frac{2x}{\pi} \nonumber .
 		\end{align}
 		
-		Für einen Linienabstand von 2l entspricht die Wahrscheinlichkeit $1/\pi$.
+		Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu
 		
 		\begin{align}
 			P &= \frac{2l}{\pi d}\\ \nonumber
-			&= \frac{2l}{\pi 2l}\\ \nonumber
-			&= \frac{1}{\pi} \nonumber
+			&= \frac{2l}{\pi (2l)}\\ \nonumber
+			&= \frac{1}{\pi} \nonumber .
 		\end{align}
 		
-		Somit ist es möglich mithilfe eines Monte-Carlo-Verfahrens den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern.
+		Somit ist es möglich durch viele Durchführungen den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern (Monte-Carlo-Simulation).
 
 	\subsection{Implementierung des Experiments}
-		Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Außerdem enthält das Programm Funktionen für den Parameter- und Intervalltest.
+		Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
 
 		\subsubsection*{Die Simulation}
 			\label{chap_sim_results}
-			Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, die Breite zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert wo zusätzlich gezählt wird wie viele Nadeln eine Linie schneiden.
+			Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, die Breite zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert, zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
 
 			\begin{figure}[htb]
 				\centering
@@ -130,7 +126,7 @@ Mannheim, Juni 2020
 				\label{fig:needels}
 			\end{figure}
 
-			Um zu prüfen, ob eine Nadel eine Linie schneidet wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
+			Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
 			\texttt{d = (x + line\_dist / 2) \% line\_dist;\\
 				dist\_to\_line = min(d, line\_dist - d);\\
 				x\_extent = abs(math.cos(angle)) * (needle\_length / 2);\\
@@ -138,7 +134,7 @@ Mannheim, Juni 2020
 			\\
 			Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
-			Für die Statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden.
+			Für die statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der andren Module des Programms durchgeführt werden.
 
 		\subsubsection*{Die Auswertung}
 			Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. Ein Ergebnis ist die Anzahl der Nadeln, die eine Linie schneiden. In Abbildung \ref{fig:hist} sieht man, dass die Ergebnisse normalverteilt sind.
@@ -146,11 +142,11 @@ Mannheim, Juni 2020
 			\begin{figure}[htb]
 				\centering
 				\includegraphics[width=0.45\textwidth]{images/histogram_1000_no_interval_3.png}
-				\caption{Histogramm von 1000 Simulationen mit 100 Nadeln}
+				\caption{Histogramm aus 1000 Simulationen mit 100 Nadeln (blau) und Normalverteilung mit gleichen Parametern (orange)}
 				\label{fig:hist}
 			\end{figure}
-
-			Außerdem lässt sich ein Parameter- und Intervalltest anwenden, die im folgenden Kapitel beschrieben werden.
+			
+			Weitere Methoden zur Auswertung werden in den nächsten Kapiteln diskutiert.
 
 \section{Konfidenzintervalle}
 	\subsection{Überblick}
@@ -188,7 +184,7 @@ Mannheim, Juni 2020
 		\gamma &= 1 - 2 P(T \le c) \\
 		P(T \le c) &= \frac{\gamma + 1}{2} .
 		\end{align}
-		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek scipy.
+		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek scipy\cite{scipy}.
 		Aus der Definition der Zufallsvariable $T$ in Gleichung \ref{eq_interval_t} ergibt sich für die Grenzen des Intervalls:
 		\begin{equation}
 		c_1 = \overline{x} - \frac{cs}{\sqrt{n}} \mbox{ und } c_2 = \overline{x} + \frac{cs}{\sqrt{n}}.
@@ -206,7 +202,7 @@ Mannheim, Juni 2020
 		P(Z \le c_1) &= \frac{1}{2} (1-\gamma) \\
 		P(Z \le c_2) &= \frac{1}{2} (1+\gamma)
 		\end{align}
-		$P(T \le c_{1,2})$ entspricht jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann durch \texttt{scipy.stats.chi2.ppf(x, N)} berechnet werden.
+		$P(T \le c_{1,2})$ entspricht jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann durch \texttt{scipy.stats.chi2.ppf(x, N)}\cite{scipy} berechnet werden.
 		Aus der Definition der Zufallsvariable $Z$ in Gleichung \ref{eq_interval_z} ergibt sich das Konfidenzintervall der Varianz:
 		\begin{equation}
 		(n-1)  \frac{s^2}{c_2} \le \sigma^2 \le (n-1)  \frac{s^2}{c_1}.
@@ -298,6 +294,7 @@ Mannheim, Juni 2020
 	\bibitem{Python}Python: \url{https://www.python.org/}
 	\bibitem{Pillow}Pillow: \url{https://pillow.readthedocs.io/en/stable/}
 	\bibitem{matplotlib}matplotlib: \url{https://matplotlib.org/}
+	\bibitem{scipy}scipy: \url{https://www.scipy.org/}
 	\bibitem{Badger}Lee Badger: Lazzarini’s Lucky Approximation of $\pi$, Mathematics Magazine, Band 67, 1994, 83-85
 \end{thebibliography}
 
