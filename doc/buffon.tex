@@ -245,7 +245,7 @@ Mannheim, Juni 2020
 
 \section{Parametertests}
 	\subsection{Überblick}
-		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden um Angaben eines Herstellers zu überprüfen.
+		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
 	\subsection{Herleitung des Mittelwerts Parametertests}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
 
@@ -308,7 +308,7 @@ Mannheim, Juni 2020
 	&= 0.048781 \nonumber .
 	\end{align}
 	Das ist deutlich ungenauer als $\Delta pi = 0,5 * 10^{-6}$, was sechs Nachkommastellen entsprechen würde.
-	Die Genauigkeit von dem ermittelte Wert für $\pi$ von Lazzarini von 6 Nachkommastellen war also nicht zu erwarten.
+	Die Genauigkeit von dem ermittelten Wert für $\pi$ von Lazzarini von 6 Nachkommastellen war also nicht zu erwarten.
 	
 	Dabei könnte es sich um bloßen Zufall handeln. Die merkwürdige Anzahl an Nadelwürfen ($3408$) ist aber besonders verdächtig. Sein Ergebnis entspricht exakt der auch zu diesem Zeitpunkt bekannten Approximation $\pi \approx \frac{355}{133}$.
 	Um diese Approximation mit dem von ihm verwendeten Verhältnis ${\tfrac {l}{d}={\tfrac {5}{6}}}$ zu erhalten muss das Verhältnis von Nadeln, die eine Linie schneiden, zu allen Nadeln exakt
@@ -323,7 +323,16 @@ Mannheim, Juni 2020
 	Dies spricht stark dafür, dass Lazzarini die Parameter des Experiments mit dem direkten Ziel eine schon bekannte Approximation zu treffen ausgelegt hat oder die Daten sogar frei erfunden hat. \cite{Badger}
 	
 	
-\section*{Ergebnisse und Diskussion}
+\section{Ergebnisse und Diskussion}
+	In dieser Arbeit wurden Konfidenzintervalle und  Parametertests als hilfreiche Werkzeuge bei der Analyse von statistischen Daten eingeführt. Dabei wurden die dafür notwendigen Formeln hergeleitet und durch einen empirischen Beweis plausibilisiert.
+	Auch die Korrektheit des dabei verwendeten Testverfahrens wurde durch das Testen absichtlich leicht falscher Formeln auf die Probe gestellt. Dabei hat das Testverfahren die falschen Formeln als solche identifizieren können und die Korrektheit der richtigen Formeln bestätigt.
+	
+	Das Buffonsche Nadelproblem wurde erläutert und die dabei relevanten Formeln hergeleitet. Außerdem wurde das Experiment in einer Simulation durchgeführt.
+	Zum Abschluss wurde ein spezieller Fall, die Durchführung des Experiments von Lazzarini, genauer untersucht. Dabei wurden durch ein Konfidenzintervall und Hintergrundinformationen gezeigt, dass Lazzarini vermutlich absichtlich manipuliert hat, um ein gutes Ergebnis aus dem Experiment zu erhalten.
+	
+	\bigskip
+	\noindent
+	Der Quellcode des erstellten Programms und dieser Arbeit ist öffentlich zugänglich unter:\\ \url{https://github.com/DavidRisch/buffon}.
 
 \begin{thebibliography}{99}
 	\bibitem{MathWorld}Weisstein, Eric W.: {\textit Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. \url{https://mathworld.wolfram.com/BuffonsNeedleProblem.html}
