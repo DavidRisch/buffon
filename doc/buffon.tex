@@ -94,18 +94,17 @@ Mannheim, Juni 2020
 	Dieses Experiment beinhaltet eine Nadel der Länge $l$, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand $d$ fällt. Für eine kurze Nadel, also $l < d$, lässt sich die Wahrscheinlichkeit wie folgt berechnen: \cite{MathWorld}
 
 	\begin{align}
-		P(x) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ \nonumber
-		&= \frac{l}{2 \pi d} 4 \int_{0}^{\pi/2}\cos{\theta}d\theta\\ \nonumber
-		&= \frac{2l}{\pi d}\\ \nonumber
-		&= \frac{2x}{\pi} \nonumber .
+		P(x) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ 
+		&= \frac{l}{2 \pi d} 4 \int_{0}^{\pi/2}\cos{\theta}d\theta  \nonumber \\
+		&= \frac{2l}{\pi d} \nonumber .
 	\end{align}
 	
 	Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu
 	
 	\begin{align}
-		P &= \frac{2l}{\pi d}\\ \nonumber
-		&= \frac{2l}{\pi (2l)}\\ \nonumber
-		&= \frac{1}{\pi} \nonumber .
+		P(x) &= \frac{2l}{\pi d} \nonumber \\ 
+		&= \frac{2l}{\pi (2l)} \nonumber \\
+		&= \frac{1}{\pi} .
 	\end{align}
 	
 	Somit ist es möglich durch viele Durchführungen den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern (Monte-Carlo-Simulation).
@@ -113,9 +112,9 @@ Mannheim, Juni 2020
 \section{Implementierung des Experiments}
 	Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
 
-	\subsection*{Die Simulation}
+	\subsection{Die Simulation}
 		\label{chap_sim_results}
-		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, die Breite zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert, zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
+		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert, zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
 
 		\begin{figure}[htb]
 			\centering
@@ -134,8 +133,9 @@ Mannheim, Juni 2020
 
 		Für die statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der andren Module des Programms durchgeführt werden.
 
-	\subsection*{Die Auswertung}
-		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. Ein Ergebnis ist die Anzahl der Nadeln, die eine Linie schneiden. In Abbildung \ref{fig:hist} sieht man, dass die Ergebnisse normalverteilt sind.
+	\subsection{Die Auswertung}
+		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib} erstellt. 
+		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, normalverteilt sind.
 
 		\begin{figure}[htb]
 			\centering
@@ -165,7 +165,7 @@ Mannheim, Juni 2020
 		P(c_1 \le \overline{X} \le c_2) = \gamma
 		\end{equation}
 		gilt.
-		Der Durchschnitt der Stichprobe $\overline{x}$ und die geschätzte Standardabweichung $s$ lasen sich direkt aus den Stichprobenwerten berechnen:
+		Der Durchschnitt der Stichprobe $\overline{x}$ und die geschätzte Standardabweichung $s$ lassen sich direkt aus den Stichprobenwerten berechnen:
 		\begin{align}
 		\overline{x} &=  \frac{1}{n} \sum_1^n{x_i} , \\
 		s &= \frac{1}{n-1} \sum_1^n{(x_i - \overline{x})^2} .
@@ -174,7 +174,7 @@ Mannheim, Juni 2020
 		\begin{equation} \label{eq_interval_t}
 		T = \frac{\overline{X} - \mu}{\frac{S}{\sqrt{n}}} .
 		\end{equation}
-		Gleichung \ref{eq_interval_norm} kann jetzt mit $T$ umformuliert werden:
+		Gleichung \ref{eq_interval_norm} kann jetzt mit $T$ umformuliert werden zu:
 		\begin{align}
 		\gamma &= P(-c \le T \le c) \\ \nonumber
 		\gamma &= P(T \le c) - P(T \le -c) \\ \nonumber
@@ -200,7 +200,7 @@ Mannheim, Juni 2020
 		P(Z \le c_1) &= \frac{1}{2} (1-\gamma) \\
 		P(Z \le c_2) &= \frac{1}{2} (1+\gamma)
 		\end{align}
-		$P(T \le c_{1,2})$ entspricht jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann durch \texttt{scipy.stats.chi2.ppf(x, N)}\cite{scipy} berechnet werden.
+		Hier entspricht $P(T \le c_i)$ jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann durch \texttt{scipy.stats.chi2.ppf(x, N)}\cite{scipy} berechnet werden.
 		Aus der Definition der Zufallsvariable $Z$ in Gleichung \ref{eq_interval_z} ergibt sich das Konfidenzintervall der Varianz:
 		\begin{equation}
 		(n-1)  \frac{s^2}{c_2} \le \sigma^2 \le (n-1)  \frac{s^2}{c_1}.
@@ -208,9 +208,9 @@ Mannheim, Juni 2020
 
 	\subsection{Empirischer Beweis}
 		\label{chap_interval_prove}
-		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführte  Zufallsvariablen $T$ und $Z$ würde genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
+		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführte  Zufallsvariablen $T$ und $Z$, würde genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
 
-		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung wurde in Python implementiert und können so beliebig oft mit den in Kapitel \ref{chap_sim_results} erstellten Daten durchgeführt werden.
+		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den in Kapitel \ref{chap_sim_results} erstellten Daten durchgeführt werden.
 
 		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartenden Mittelwerts und die Varianz berechnet  werden:
 		\begin{align}
@@ -219,11 +219,11 @@ Mannheim, Juni 2020
 		Var(X) &= \sigma^2 = (n p (1-p))^2 .
 		\end{align}
 
-		Es wird überprüft, ob der Erwartungswert und die Varianz innerhalb oder außerhalb des geschätzten Intervalls liegen.
+		Es wird überprüft, ob der echte Erwartungswert und die echte Varianz innerhalb oder außerhalb des geschätzten Intervalls liegen.
 
 		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt, dabei wird der Anteil an korrekten Intervalle gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet, wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
 
-		Um zu zeigen, dass diese Methode der Überprüfung funktioniert wurde nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $n$ Freiheitsgrade angenommen (richtig sind $n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse liegen sehr nahe an den eigentlich richtigen liegen.
+		Um zu zeigen, dass diese Methode der Überprüfung funktioniert wurde nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
 
 		Die Ergebnisse sind in Abbildung \ref{fig_mean_interval_dot} und \ref{fig_var_interval_dot} dargestellt. Dabei ist klar zu erkennen, dass die mit den richtigen Formeln berechneten Ergebnisse nahe an $1$ liegen und die mit den falschen Formeln berechneten Ergebnisse deutlich von $1$ abweichen. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
@@ -245,7 +245,7 @@ Mannheim, Juni 2020
 
 \section{Parametertests}
 	\subsection{Überblick}
-		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
+		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel wird er Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
 	\subsection{Herleitung des Mittelwerts Parametertests}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
 
@@ -255,7 +255,7 @@ Mannheim, Juni 2020
 		\begin{equation}
 		P(-c \le T \le c) = \gamma .
 		\end{equation}
-		$c$ wird wieder aus den Quantilen der t-Verteilung berechnet. Es wird aber $c$ nicht aus $T$ in $X$ rücktransformiert um die Grenzen des Konfidenzintervalls zu erhalten, sondern der Mittelwert der Stichprobe wird nach $T$ transformiert:
+		$c$ wird wieder aus den Quantilen der t-Verteilung berechnet. Es wird aber $c$ nicht aus $T$ in $X$ rücktransformiert um die Grenzen des Konfidenzintervalls zu erhalten, sondern der Mittelwert der Stichprobe wird nach $T$ transformiert mit:
 		\begin{equation}
 		\hat{t} = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}} .
 		\end{equation}
@@ -268,7 +268,7 @@ Mannheim, Juni 2020
 
 		Mit einer höheren Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$ sinkt die Wahrscheinlichkeit $H_0$ fälschlich abzulehnen, dafür steigt die Wahrscheinlichkeit $H_0$ fälschlich anzunehmen.
 	\subsection{Empirischer Beweis}
-		Das die hergeleiteten Formeln gelten ist auch hier nicht sofort plausibel.
+		Das die hergeleiteten Formeln gelten ist auch hier durch die Einführung einer weiteren Zufallsvariable nicht sofort plausibel.
 
 		Das Vorgehen entspricht im Wesentlichen dem aus Kapitel \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
 
@@ -310,13 +310,13 @@ Mannheim, Juni 2020
 	Das ist deutlich ungenauer als $\Delta pi = 0,5 * 10^{-6}$, was sechs Nachkommastellen entsprechen würde.
 	Die Genauigkeit von dem ermittelten Wert für $\pi$ von Lazzarini von 6 Nachkommastellen war also nicht zu erwarten.
 	
-	Dabei könnte es sich um bloßen Zufall handeln. Die merkwürdige Anzahl an Nadelwürfen ($3408$) ist aber besonders verdächtig. Sein Ergebnis entspricht exakt der auch zu diesem Zeitpunkt bekannten Approximation $\pi \approx \frac{355}{133}$.
+	Dabei könnte es sich um bloßen Zufall handeln. Die merkwürdige Anzahl an Nadelwürfen ($3408$) ist aber besonders verdächtig. Sein Ergebnis entspricht exakt der auch zu diesem Zeitpunkt bekannten Approximation $\pi \approx \frac{355}{113}$.
 	Um diese Approximation mit dem von ihm verwendeten Verhältnis ${\tfrac {l}{d}={\tfrac {5}{6}}}$ zu erhalten muss das Verhältnis von Nadeln, die eine Linie schneiden, zu allen Nadeln exakt
 	\begin{equation}
-	\frac{5}{3} \pi  \approx \frac{5}{3} \frac{355}{133} = \frac{113}{213}
+	\frac{5}{3} \frac{1}{\pi}  \approx \frac{5}{3} \frac{113}{355} = \frac{113}{213}
 	\end{equation}
 	sein.
-	Die Anzahl an Würfen ist genau ein ganzes Vielfaches des Nenners:
+	Seine Anzahl an Würfen ist genau ein ganzes Vielfaches des Nenners:
 	\begin{equation}
 	16 \cdot 213 = 3048
 	\end{equation}
