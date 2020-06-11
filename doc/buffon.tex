@@ -90,7 +90,7 @@ Mannheim, Juni 2020
 \section{Einleitung}
 	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern. Eine interessante Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
 	
-	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Mittelwerts und Varianz Konfidenzintervalle hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
+	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Konfidenzintervalle für den Mittelwert und die Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
 
 \section{Buffonsches Nadelproblem}
 	\label{chap_buffon_needle}
@@ -161,7 +161,7 @@ Mannheim, Juni 2020
 			\caption{Eine Normalverteilung (orange), $50$ nach dieser Verteilung verteilte Werte (blau) und ein aus diesen berechnetes $80\%$ Konfidenzintervall des Mittelwerts (schwarz)}
 			\label{fig_mean_interval_hist}
 		\end{figure}
-	\subsection{Herleitung des Mittelwerts Konfidenzintervalls}
+	\subsection{Herleitung des Konfidenzintervalls für den Mittelwerts }
 		\label{chap_interval_mean_math}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$.
 		Ziel ist die Bestimmung von $c_1$ und $c_2$ sodass
@@ -192,7 +192,7 @@ Mannheim, Juni 2020
 		c_1 = \overline{x} - \frac{cs}{\sqrt{n}} \mbox{ und } c_2 = \overline{x} + \frac{cs}{\sqrt{n}}.
 		\end{equation}
 
-	\subsection{Herleitung des Varianz Konfidenzintervalls}
+	\subsection{Herleitung des Konfidenzintervalls für die Varianz}
 		\label{chap_interval_var_math}
 		Die Herleitung des Varianz Intervalls verläuft analog zu dem Konfidenzintervall  des Mittelwerts. Anstelle einer t-Verteilung wird eine Chi-Quadrat-verteilte Zufallsvariable eingeführt:
 		\begin{equation} \label{eq_interval_z}
@@ -235,12 +235,12 @@ Mannheim, Juni 2020
 			\centering
 			\begin{subfigure}[c]{1\columnwidth}
 				\includegraphics[width=0.9\columnwidth]{images/mean_interval.png}
-				\caption{Mittelwerts Konfidenzintervall}
+				\caption{Konfidenzintervall des Mittelwerts}
 				\label{fig_mean_interval_dot}
 			\end{subfigure}
 			\begin{subfigure}[c]{1\columnwidth}
 				\includegraphics[width=0.9\columnwidth]{images/var_interval.png}
-				\caption{Varianz Konfidenzintervall}
+				\caption{Konfidenzintervall der Varianz}
 				\label{fig_var_interval_dot}
 			\end{subfigure}
 			\caption{Abweichung des tatsächlichen Anteils an korrekt geschätzten Intervallen von dem Konfidenzniveau (y-Achse) für verschiedene Konfidenzniveaus (x-Achse) von dem idealen Wert (schwarz) für Ergebnisse der richtigen Formeln (blau) und der falschen Formeln (gelb).}
@@ -249,12 +249,12 @@ Mannheim, Juni 2020
 
 \section{Parametertests}
 		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel wird er Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
-	\subsection{Herleitung des Mittelwerts Parametertests}
+	\subsection{Herleitung des Parametertests für den Mittelwert}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
 
 		Das Ziel ist die Entscheidung zwischen einer Nullhypothese $H_0$ ($\mu = \mu_0$) und einer Alternativhypothese $H_1$ ($\mu \ne \mu_0$).
 
-		Das Vorgehen ähnelt dem Schätzen eines Mittelwerts Konfidenzintervalls. Es wird die Zufallsvariable $T$ eingeführt (Gleichung \ref{eq_interval_t}), mit dieser kann der Test formuliert werden als:
+		Das Vorgehen ähnelt dem Schätzen eines Konfidenzintervalls für den Mittelwert. Es wird die Zufallsvariable $T$ eingeführt (Gleichung \ref{eq_interval_t}), mit dieser kann der Test formuliert werden als:
 		\begin{equation}
 		P(-c \le T \le c) = \gamma .
 		\end{equation}
