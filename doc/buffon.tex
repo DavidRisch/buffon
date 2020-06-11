@@ -40,9 +40,6 @@
 
 %###########################################################
 % custom
-\newcommand{\TITLE}{Evaluation von Intervallschätzungen und Paramtertests\\ am Beispiel des Buffonschen Nadelproblems}
-\newcommand{\AUTHORS}{Lukas Rosenbach\\ David Lennart Risch}
-
 \usepackage[
 hidelinks,
 linktoc=all
@@ -61,8 +58,8 @@ labelformat=brace, position=top, belowskip=0mm, skip=0mm]{subcaption}
 \usepackage{lastpage}
 \usepackage{fancyhdr}
 \fancyhf{} % leere alle Felder
-\fancyhead[R]{\footnotesize \AUTHORS}
-\fancyhead[L]{\footnotesize \TITLE} % Titel des Aufsatzes
+\fancyhead[R]{\footnotesize Lukas Rosenbach\\ David Lennart Risch}
+\fancyhead[L]{\footnotesize Evaluation von Intervallschätzungen und Parametertests\\ mit dem Buffonschen Nadelproblem} % Titel des Aufsatzes
 \fancyfoot[C]{\footnotesize \thepage/\pageref{LastPage}}
 % \fancyfoot[C]{\footnotesize \thepage}
 \renewcommand{\headrulewidth}{0.4pt} % obere Trennlinie
@@ -74,10 +71,10 @@ labelformat=brace, position=top, belowskip=0mm, skip=0mm]{subcaption}
 \begin{document}
 
 \twocolumn[
-\ownsection{\TITLE}
+\ownsection{{Evaluation von Intervallschätzungen und Parametertests mit dem Buffonschen Nadelproblem}}
 
 \begin{center}
-\AUTHORS \\
+Lukas Rosenbach \& David Lennart Risch \\
 Mannheim, Juni 2020
 \end{center}
 \vspace*{5mm}
@@ -89,10 +86,11 @@ Mannheim, Juni 2020
 	Dabei werden sowohl Ergebnisse des Zufallsexperiments mit den hergeleitet Formeln analysiert, als auch die Formeln mit den Daten aus einer Simulation des Zufallsexperiments getestet.
 	Mit den erarbeiteten und getesteten Werkzeugen werden Zweifel an den Ergebnissen einer historischen Durchführung des Nadelexperiments begründet.
 
-\section*{Einleitung}
+
+\section{Einleitung}
 	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern. Eine interessante Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
 	
-	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Mittelwerts und Varianz Konfidenzintervalle hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mit Hilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
+	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Mittelwerts und Varianz Konfidenzintervalle hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
 
 \section{Buffonsches Nadelproblem}
 	\label{chap_buffon_needle}
@@ -154,7 +152,6 @@ Mannheim, Juni 2020
 		Weitere Methoden zur Auswertung werden in den nächsten Kapiteln diskutiert.
 
 \section{Konfidenzintervalle}
-	\subsection{Überblick}
 		Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe treffen zu können.
 
 		In Abbildung \ref{fig_mean_interval_hist} ist das $80\%$ Konfidenzintervall des Mittelwerts dargestellt. In diesem Fall ist das Intervall korrekt, da der wahre Mittelwert, der Hochpunkt der orangen Kurve, innerhalb des Intervalls liegt.
@@ -234,7 +231,7 @@ Mannheim, Juni 2020
 
 		Die Ergebnisse sind in Abbildung \ref{fig_mean_interval_dot} und \ref{fig_var_interval_dot} dargestellt. Dabei ist klar zu erkennen, dass die mit den richtigen Formeln berechneten Ergebnisse nahe an $1$ liegen und die mit den falschen Formeln berechneten Ergebnisse deutlich von $1$ abweichen. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
-		\begin{figure}[H]%
+		\begin{figure}[h]%
 			\centering
 			\begin{subfigure}[c]{1\columnwidth}
 				\includegraphics[width=0.9\columnwidth]{images/mean_interval.png}
@@ -251,7 +248,6 @@ Mannheim, Juni 2020
 
 
 \section{Parametertests}
-	\subsection{Überblick}
 		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel wird er Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
 	\subsection{Herleitung des Mittelwerts Parametertests}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
