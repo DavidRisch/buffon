@@ -152,7 +152,7 @@ Mannheim, Juni 2020
 		Weitere Methoden zur Auswertung werden in den nächsten Kapiteln diskutiert.
 
 \section{Konfidenzintervalle}
-		Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe treffen zu können.
+		Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe zu treffen.
 
 		In Abbildung \ref{fig_mean_interval_hist} ist das $80\%$ Konfidenzintervall des Mittelwerts dargestellt. In diesem Fall ist das Intervall korrekt, da der wahre Mittelwert, der Hochpunkt der orangen Kurve, innerhalb des Intervalls liegt.
 		\begin{figure}[h]%
@@ -216,7 +216,7 @@ Mannheim, Juni 2020
 
 		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Kapitel \ref{chap_sim_results} durchgeführt werden.
 
-		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartenden Mittelwerts und die Varianz berechnet  werden:
+		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ kann der theoretisch zu erwartenden Mittelwert und die Varianz berechnet werden:
 		\begin{align}
 		E(X) &= n p , \\
 		\sigma &= n p (1-p) , \nonumber \\
