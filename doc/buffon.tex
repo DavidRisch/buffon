@@ -117,7 +117,7 @@ Mannheim, Juni 2020
 
 	\subsection{Die Simulation}
 		\label{chap_sim_results}
-		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert, zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
+		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert. Zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
 
 		\begin{figure}[htb]
 			\centering
@@ -134,10 +134,10 @@ Mannheim, Juni 2020
 		\\
 		Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
-		Für die statistische Auswertung enthält das Programm eine Methode, die Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, wie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der andren Module des Programms durchgeführt werden.
+		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, sowie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der andren Module des Programms durchgeführt werden.
 
 	\subsection{Die Auswertung}
-		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib} erstellt. 
+		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. 
 		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, normalverteilt sind.
 
 		\begin{figure}[htb]
@@ -213,7 +213,7 @@ Mannheim, Juni 2020
 		\label{chap_interval_prove}
 		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführte  Zufallsvariablen $T$ und $Z$, würde genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
 
-		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den in Kapitel \ref{chap_sim_results} erstellten Daten durchgeführt werden.
+		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Kapitel \ref{chap_sim_results} durchgeführt werden.
 
 		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartenden Mittelwerts und die Varianz berechnet  werden:
 		\begin{align}
@@ -224,7 +224,7 @@ Mannheim, Juni 2020
 
 		Es wird überprüft, ob der echte Erwartungswert und die echte Varianz innerhalb oder außerhalb des geschätzten Intervalls liegen.
 
-		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt, dabei wird der Anteil an korrekten Intervalle gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet, wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
+		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt und dabei der Anteil an korrekten Intervallen gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet. Wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
 
 		Um zu zeigen, dass diese Methode der Überprüfung funktioniert wurde nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
 
@@ -263,11 +263,11 @@ Mannheim, Juni 2020
 		\hat{t} = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}} .
 		\end{equation}
 
-		Dann gilt mit einer Wahrscheinlichkeit $\gamma$, dass $H_0$ wahr ist, wenn
+		Dann ist $H_0$ mit einer Wahrscheinlichkeit $\gamma$ wahr, wenn
 		\begin{equation}
 		-c \le \hat{t} \le c
 		\end{equation}
-		gilt, andernfalls ist $H_1$ wahr.
+		gilt. Andernfalls ist $H_1$ wahr.
 
 		Mit einer höheren Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$ sinkt die Wahrscheinlichkeit $H_0$ fälschlich abzulehnen, dafür steigt die Wahrscheinlichkeit $H_0$ fälschlich anzunehmen.
 	\subsection{Empirischer Beweis}
@@ -314,7 +314,7 @@ Mannheim, Juni 2020
 	Die Genauigkeit von dem ermittelten Wert für $\pi$ von Lazzarini von 6 Nachkommastellen war also nicht zu erwarten.
 	
 	Dabei könnte es sich um bloßen Zufall handeln. Die merkwürdige Anzahl an Nadelwürfen ($3408$) ist aber besonders verdächtig. Sein Ergebnis entspricht exakt der auch zu diesem Zeitpunkt bekannten Approximation $\pi \approx \frac{355}{113}$.
-	Um diese Approximation mit dem von ihm verwendeten Verhältnis ${\tfrac {l}{d}={\tfrac {5}{6}}}$ zu erhalten muss das Verhältnis von Nadeln, die eine Linie schneiden, zu allen Nadeln exakt
+	Um diese Approximation mit dem von ihm verwendeten Verhältnis ${\tfrac {l}{d}={\tfrac {5}{6}}}$ zu erhalten, muss das Verhältnis von Nadeln, die eine Linie schneiden, zu allen Nadeln exakt
 	\begin{equation}
 	\frac{5}{3} \frac{1}{\pi}  \approx \frac{5}{3} \frac{113}{355} = \frac{113}{213}
 	\end{equation}
