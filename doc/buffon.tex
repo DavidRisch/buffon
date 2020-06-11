@@ -90,11 +90,11 @@ Mannheim, Juni 2020
 \section{Einleitung}
 	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern. Eine interessante Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
 	
-	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Konfidenzintervalle des Mittelwerts und der Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
+	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Python-Skripts erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Konfidenzintervalle des Mittelwerts und der Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
 
 \section{Buffonsches Nadelproblem}
 	\label{chap_buffon_needle}
-	Bei dem Buffonschen Nadelproblem, das erstmals von Buffon im Jahr 1733 behandelt wurde, geht es um die Wahrscheinlichkeit, dass eine Nadel, die auf eine Fläche mit parallelen Linien gleichen Abstands geworfen wird, eine Linie schneidet.
+	Das Buffonschen Nadelproblem wurde erstmals von Georges-Louis Leclerc Comte de Buffon im Jahr 1733 gestellt und behandelt die Wahrscheinlichkeit, dass eine Nadel, die auf eine Fläche mit parallelen Linien gleichen Abstands geworfen wird, eine Linie schneidet.
 	
 	Dieses Experiment beinhaltet eine Nadel der Länge $l$, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand $d$ fällt. Für eine kurze Nadel, also $l < d$, lässt sich die Wahrscheinlichkeit wie folgt berechnen: \cite{MathWorld}
 
@@ -104,7 +104,7 @@ Mannheim, Juni 2020
 		&= \frac{2l}{\pi d} \nonumber .
 	\end{align}
 	
-	Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu
+	Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu:
 	
 	\begin{align}
 		P(x) &= \frac{2l}{\pi d} \nonumber \\ 
@@ -112,14 +112,14 @@ Mannheim, Juni 2020
 		&= \frac{1}{\pi} .
 	\end{align}
 	
-	Somit ist es möglich durch viele Durchführungen den Wert von Pi mit dem Buffonschen Nadelexperiment anzunähern (Monte-Carlo-Simulation).
+	Somit ist es möglich durch viele Durchführungen den Wert von $\pi$ mit dem Buffonschen Nadelexperiment anzunähern (Monte-Carlo-Simulation).
 
 \section{Implementierung des Experiments}
-	Das Buffonsche Nadelproblem wurde als Python\cite{Python} Programm implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
+	Das Buffonsche Nadelproblem wurde als Python-Skript implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
 
 	\subsection{Die Simulation}
 		\label{chap_sim_results}
-		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für n Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert. Zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
+		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem Linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für $n$ Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert. Zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
 
 		\begin{figure}[htb]
 			\centering
@@ -128,7 +128,7 @@ Mannheim, Juni 2020
 			\label{fig:needels}
 		\end{figure}
 
-		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in X-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
+		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in x-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
 		\texttt{d = (x + line\_dist / 2) \% line\_dist;\\
 			dist\_to\_line = min(d, line\_dist - d);\\
 			x\_extent = abs(math.cos(angle)) * (needle\_length / 2);\\
@@ -136,11 +136,11 @@ Mannheim, Juni 2020
 		\\
 		Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
-		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, sowie die Gesamtanzahl der Nadeln. Dies kann dann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der anderen Module des Programms durchgeführt werden.
+		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, sowie die Gesamtanzahl der Nadeln. Dies kann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der anderen Module des Programms durchgeführt werden.
 
 	\subsection{Die Auswertung}
 		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. 
-		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, normalverteilt ist.
+		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, annähernd normalverteilt ist.
 
 		\begin{figure}[htb]
 			\centering
@@ -171,8 +171,8 @@ Mannheim, Juni 2020
 		gilt.
 		Der Durchschnitt der Stichprobe $\overline{x}$ und die geschätzte Standardabweichung $s$ lassen sich direkt aus den Stichprobenwerten berechnen:
 		\begin{align}
-		\overline{x} &=  \frac{1}{n} \sum_1^n{x_i} , \\
-		s &= \frac{1}{n-1} \sum_1^n{(x_i - \overline{x})^2} .
+		\overline{x} &=  \frac{1}{n} \sum_{i=1}^n{x_i} , \\
+		s &= \frac{1}{n-1} \sum_{i=1}^n{(x_i - \overline{x})^2} .
 		\end{align}
 		Um Gleichung \ref{eq_interval_norm} umformen zu können wird eine weitere Zufallsvariable eingeführt:
 		\begin{equation} \label{eq_interval_t}
@@ -184,7 +184,7 @@ Mannheim, Juni 2020
 		\gamma &= P(T \le c) - P(T \le -c) \\ \nonumber
 		\gamma &= P(T \le c) - (1 - P(T \le c)) \\ \nonumber
 		\gamma &= 1 - 2 P(T \le c) \\
-		P(T \le c) &= \frac{\gamma + 1}{2} .
+		\frac{\gamma + 1}{2} &= P(T \le c) .
 		\end{align}
 		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek scipy\cite{scipy}.
 		Aus der Definition der Zufallsvariable $T$ in Gleichung \ref{eq_interval_t} ergibt sich für die Grenzen des Intervalls:
@@ -204,7 +204,7 @@ Mannheim, Juni 2020
 		P(Z \le c_1) &= \frac{1}{2} (1-\gamma) \\
 		P(Z \le c_2) &= \frac{1}{2} (1+\gamma)
 		\end{align}
-		Hier entspricht $P(T \le c_i)$ jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann durch \texttt{scipy.stats.chi2.ppf(x, N)}\cite{scipy} berechnet werden.
+		Hier entspricht $P(T \le c_i)$ jeweils einem Quantil einer Chi-Quadrat-Verteilung mit $N = n-1$ Freiheitsgraden, dies kann mit \texttt{scipy.stats.chi2.ppf(x, N)}\cite{scipy} berechnet werden.
 		Aus der Definition der Zufallsvariable $Z$ in Gleichung \ref{eq_interval_z} ergibt sich das Konfidenzintervall der Varianz:
 		\begin{equation}
 		(n-1)  \frac{s^2}{c_2} \le \sigma^2 \le (n-1)  \frac{s^2}{c_1}.
@@ -218,12 +218,12 @@ Mannheim, Juni 2020
 
 		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ kann der theoretisch zu erwartende Mittelwert und die Varianz berechnet werden:
 		\begin{align}
-		E(X) &= n p , \\
-		\sigma &= n p (1-p) , \nonumber \\
-		Var(X) &= \sigma^2 = (n p (1-p))^2 .
+		E(X) &= n \cdot p , \\
+		\sigma &= n \cdot p (1-p) , \nonumber \\
+		Var(X) &= \sigma^2 = (n \cdot p (1-p))^2 .
 		\end{align}
 
-		Es wird überprüft, ob der echte Erwartungswert und die echte Varianz innerhalb oder außerhalb des geschätzten Intervalls liegen.
+		Es wird überprüft, ob der Erwartungswert und die Varianz der Grundgesamtheit innerhalb oder außerhalb des geschätzten Intervalls liegen.
 
 		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt und dabei der Anteil an korrekten Intervallen gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet. Wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
 
@@ -248,7 +248,7 @@ Mannheim, Juni 2020
 
 
 \section{Parametertests}
-		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werte einer Stichprobe plausibel ist. In diesem Kapitel wird der Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
+		Mit einem Parametertest kann eine Aussage darüber getroffen werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werte einer Stichprobe plausibel ist. In diesem Kapitel wird der Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
 	\subsection{Herleitung des Parametertests für den Mittelwert}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
 
@@ -275,7 +275,7 @@ Mannheim, Juni 2020
 
 		Das Vorgehen entspricht im Wesentlichen dem aus Kapitel \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
 
-		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} zu sehen. Die Ergebnisse der richtigen Formeln liegen wieder nahe an $1$ und die der falschen Formeln weichen deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
+		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} zu sehen. Das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit bei der richtigen Formeln liegen wieder nahe an $1$ und das der falschen Formeln weichen deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
 		\begin{figure}[H]
 			\centering
@@ -300,7 +300,7 @@ Mannheim, Juni 2020
 	&= \frac{1,96066 \cdot 0.249141}{\sqrt{3408}} \\ \nonumber
 	&= 8,367538 \cdot 10 ^{-3} \nonumber
 	\end{align}
-	oder schlechter für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit P entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
+	oder schlechter für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit $P$ entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
 	\begin{equation}
 	P(x) = \frac{2l}{\pi d}.
 	\end{equation}
@@ -337,9 +337,9 @@ Mannheim, Juni 2020
 	\noindent
 	Der Quellcode des erstellten Programms und dieser Arbeit ist öffentlich zugänglich unter:\\ \url{https://github.com/DavidRisch/buffon}.
 
+\newpage
 \begin{thebibliography}{99}
 	\bibitem{MathWorld}Weisstein, Eric W.: {\textit Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. \url{https://mathworld.wolfram.com/BuffonsNeedleProblem.html}
-	\bibitem{Python}Python: \url{https://www.python.org/}
 	\bibitem{Pillow}Pillow: \url{https://pillow.readthedocs.io/en/stable/}
 	\bibitem{matplotlib}matplotlib: \url{https://matplotlib.org/}
 	\bibitem{scipy}scipy: \url{https://www.scipy.org/}
