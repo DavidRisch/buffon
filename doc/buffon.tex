@@ -90,7 +90,7 @@ Mannheim, Juni 2020
 \section{Einleitung}
 	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern. Eine interessante Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
 	
-	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Konfidenzintervalle für den Mittelwert und die Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
+	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Pythonprogramms erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden Konfidenzintervalle des Mittelwerts und der Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
 
 \section{Buffonsches Nadelproblem}
 	\label{chap_buffon_needle}
@@ -140,7 +140,7 @@ Mannheim, Juni 2020
 
 	\subsection{Die Auswertung}
 		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. 
-		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, normalverteilt sind.
+		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, normalverteilt ist.
 
 		\begin{figure}[htb]
 			\centering
@@ -212,11 +212,11 @@ Mannheim, Juni 2020
 
 	\subsection{Empirischer Beweis}
 		\label{chap_interval_prove}
-		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführte  Zufallsvariablen $T$ und $Z$, würde genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
+		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführten  Zufallsvariablen $T$ und $Z$, würden genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
 
 		Um die Korrektheit der in Kapitel \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Kapitel \ref{chap_sim_results} durchgeführt werden.
 
-		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ kann der theoretisch zu erwartenden Mittelwert und die Varianz berechnet werden:
+		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ kann der theoretisch zu erwartende Mittelwert und die Varianz berechnet werden:
 		\begin{align}
 		E(X) &= n p , \\
 		\sigma &= n p (1-p) , \nonumber \\
@@ -227,7 +227,7 @@ Mannheim, Juni 2020
 
 		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt und dabei der Anteil an korrekten Intervallen gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet. Wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
 
-		Um zu zeigen, dass diese Methode der Überprüfung funktioniert wurden nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
+		Um zu zeigen, dass diese Methode der Überprüfung funktioniert, wurden nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
 
 		Die Ergebnisse sind in Abbildung \ref{fig_mean_interval_dot} und \ref{fig_var_interval_dot} dargestellt. Dabei ist klar zu erkennen, dass die mit den richtigen Formeln berechneten Ergebnisse nahe an $1$ liegen und die mit den falschen Formeln berechneten Ergebnisse deutlich von $1$ abweichen. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
@@ -248,7 +248,7 @@ Mannheim, Juni 2020
 
 
 \section{Parametertests}
-		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werten einer Stichprobe plausibel ist. In diesem Kapitel wird der Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
+		Mit einem Parametertest kann eine Aussage darüber gemacht werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werte einer Stichprobe plausibel ist. In diesem Kapitel wird der Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
 	\subsection{Herleitung des Parametertests für den Mittelwert}
 		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
 
@@ -271,7 +271,7 @@ Mannheim, Juni 2020
 
 		Mit einer höheren Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$ sinkt die Wahrscheinlichkeit $H_0$ fälschlich abzulehnen, dafür steigt die Wahrscheinlichkeit $H_0$ fälschlich anzunehmen.
 	\subsection{Empirischer Beweis}
-		Das die hergeleiteten Formeln gelten ist auch hier durch die Einführung einer weiteren Zufallsvariable nicht sofort plausibel.
+		Dass die hergeleiteten Formeln gelten, ist auch hier durch die Einführung einer weiteren Zufallsvariable nicht sofort plausibel.
 
 		Das Vorgehen entspricht im Wesentlichen dem aus Kapitel \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
 
@@ -302,15 +302,15 @@ Mannheim, Juni 2020
 	\end{align}
 	oder schlechter für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit P entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
 	\begin{equation}
-	P(x) = \frac{2x}{\pi}.
+	P(x) = \frac{2l}{\pi d}.
 	\end{equation}
 	So erhält man als erwartete Genauigkeit für den ermittelten Wert von $\pi$
 	\begin{align}
-	\Delta pi &= \pi - \frac{2 \cdot x}{P + \Delta \mu} \\
+	\Delta \pi &= \pi - \frac{2 \cdot \frac{l}{d}}{P + \Delta \mu} \\
 	&= \pi - \frac{2 \cdot \frac{5}{6}}{\frac{1808}{3408} + 8,367538 \cdot 10 ^{-3}} \\ \nonumber
 	&= 0.048781 \nonumber .
 	\end{align}
-	Das ist deutlich ungenauer als $\Delta pi = 0,5 * 10^{-6}$, was sechs Nachkommastellen entsprechen würde.
+	Das ist deutlich ungenauer als $\Delta \pi = 0,5 * 10^{-6}$, was sechs Nachkommastellen entsprechen würde.
 	Die Genauigkeit von dem ermittelten Wert für $\pi$ von Lazzarini von 6 Nachkommastellen war also nicht zu erwarten.
 	
 	Dabei könnte es sich um bloßen Zufall handeln. Die merkwürdige Anzahl an Nadelwürfen ($3408$) ist aber besonders verdächtig. Sein Ergebnis entspricht exakt der auch zu diesem Zeitpunkt bekannten Approximation $\pi \approx \frac{355}{113}$.
@@ -321,7 +321,7 @@ Mannheim, Juni 2020
 	sein.
 	Seine Anzahl an Würfen ist genau ein ganzes Vielfaches des Nenners:
 	\begin{equation}
-	16 \cdot 213 = 3048
+	16 \cdot 213 = 3408
 	\end{equation}
 	Dies spricht stark dafür, dass Lazzarini die Parameter des Experiments mit dem direkten Ziel eine schon bekannte Approximation zu treffen ausgelegt hat oder die Daten sogar frei erfunden hat. \cite{Badger}
 	
