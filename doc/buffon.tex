@@ -180,10 +180,10 @@ Mannheim, Juni 2020
 		\end{equation}
 		Gleichung \ref{eq_interval_norm} kann jetzt mit $T$ umformuliert werden zu:
 		\begin{align}
-		\gamma &= P(-c \le T \le c) \\ \nonumber
-		\gamma &= P(T \le c) - P(T \le -c) \\ \nonumber
-		\gamma &= P(T \le c) - (1 - P(T \le c)) \\ \nonumber
-		\gamma &= 1 - 2 P(T \le c) \\
+		\gamma &= P(-c \le T \le c) \\ 
+		\gamma &= P(T \le c) - P(T \le -c) \nonumber \\
+		\gamma &= P(T \le c) - (1 - P(T \le c)) \nonumber \\
+		\gamma &= 1 - 2 P(T \le c) \nonumber \\
 		\frac{\gamma + 1}{2} &= P(T \le c) .
 		\end{align}
 		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek scipy\cite{scipy}.
@@ -297,7 +297,7 @@ Mannheim, Juni 2020
 	Somit erreichte Lazzarini bei seinem Experiment zu $95\%$ eine Genauigkeit von
 	\begin{align}
 	\Delta \mu &= \frac{cs}{\sqrt{n}} \\
-	&= \frac{1,96066 \cdot 0.249141}{\sqrt{3408}} \\ \nonumber
+	&= \frac{1,96066 \cdot 0.249141}{\sqrt{3408}} \nonumber \\
 	&= 8,367538 \cdot 10 ^{-3} \nonumber
 	\end{align}
 	oder schlechter für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit $P$ entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
@@ -307,7 +307,7 @@ Mannheim, Juni 2020
 	So erhält man als erwartete Genauigkeit für den ermittelten Wert von $\pi$
 	\begin{align}
 	\Delta \pi &= \pi - \frac{2 \cdot \frac{l}{d}}{P + \Delta \mu} \\
-	&= \pi - \frac{2 \cdot \frac{5}{6}}{\frac{1808}{3408} + 8,367538 \cdot 10 ^{-3}} \\ \nonumber
+	&= \pi - \frac{2 \cdot \frac{5}{6}}{\frac{1808}{3408} + 8,367538 \cdot 10 ^{-3}} \nonumber \\
 	&= 0.048781 \nonumber .
 	\end{align}
 	Das ist deutlich ungenauer als $\Delta \pi = 0,5 * 10^{-6}$, was sechs Nachkommastellen entsprechen würde.
