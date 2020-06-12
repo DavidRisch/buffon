@@ -128,12 +128,7 @@ Mannheim, Juni 2020
 			\label{fig:needels}
 		\end{figure}
 
-		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in x-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie:\\
-		\texttt{d = (x + line\_dist / 2) \% line\_dist;\\
-			dist\_to\_line = min(d, line\_dist - d);\\
-			x\_extent = abs(math.cos(angle)) * (needle\_length / 2);\\
-			if x\_extent >= dist\_to\_line:}\\
-		\\
+		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in x-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie.
 		Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
 		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, sowie die Gesamtanzahl der Nadeln. Dies kann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der anderen Module des Programms durchgeführt werden.
