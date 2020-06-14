@@ -45,6 +45,9 @@ hidelinks,
 linktoc=all
 ]{hyperref}
 
+\usepackage[hyphenbreaks]{breakurl}
+\def\UrlBreaks{\do\/\do-\do0\do1\do2\do3\do4\do5\do6\do7\do8\do9}
+
 \usepackage[list=false, font=large, labelfont=bf,
 labelformat=brace, position=top, belowskip=0mm, skip=0mm]{subcaption}
 
@@ -88,7 +91,7 @@ Mannheim, Juni 2020
 
 
 \section{Einleitung}
-	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern. Eine Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
+	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern \cite{Pi}. Eine Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
 	
 	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Python-Skripts erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden die Konfidenzintervalle des Mittelwerts und der Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
 
@@ -116,6 +119,8 @@ Mannheim, Juni 2020
 
 \section{Implementierung des Experiments}
 	Das Buffonsche Nadelproblem wurde als Python-Skript implementiert, um es mit einer großen Stichprobenzahl statistisch auswerten zu können. Die so erstellten Daten werden von anderen Modulen des Programms verwendet.
+	
+	Der Quellcode dieses und der in den folgenden Kapiteln erwähnten Python-Skripte ist öffentlich zugänglich unter: \url{https://github.com/DavidRisch/buffon}.
 
 	\subsection{Die Simulation}
 		\label{chap_sim_results}
@@ -147,13 +152,13 @@ Mannheim, Juni 2020
 		Weitere Methoden zur Auswertung werden in den nächsten Kapiteln diskutiert.
 
 \section{Konfidenzintervalle}
-		Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe zu treffen.
+		Ein Konfidenzintervall ist ein Bereich, in dem ein bestimmter Parameter mit einer bestimmten Wahrscheinlichkeit liegt. In diesem Kapitel werden Konfidenzintervalle für den Mittelwert $\mu$ und die Varianz $\sigma^2$ untersucht. Diese können verwendet werden, um Aussagen über einen unbekannten Parameter der Grundgesamtheit aus den Werten einer Stichprobe zu treffen.
 
-		In Abbildung \ref{fig_mean_interval_hist} ist das $80\%$ Konfidenzintervall des Mittelwerts dargestellt. In diesem Fall ist das Intervall korrekt, da der wahre Mittelwert, der Hochpunkt der orangen Kurve, innerhalb des Intervalls liegt.
+		In Abbildung \ref{fig_mean_interval_hist} ist das $80\%$-Konfidenzintervall des Mittelwerts dargestellt. In diesem Fall ist das Intervall korrekt, da der tatsächliche Mittelwert, der Hochpunkt der orangen Kurve, innerhalb des Intervalls liegt.
 		\begin{figure}[h]%
 			\centering
 			\includegraphics[width=0.9\columnwidth]{images/histogram_50_interval_1.png}
-			\caption{Eine Normalverteilung (orange), $50$ nach dieser Verteilung verteilte Werte (blau) und ein aus diesen berechnetes $80\%$ Konfidenzintervall des Mittelwerts (schwarz)}
+			\caption{Eine Normalverteilung (orange), $50$ nach dieser Verteilung verteilte Werte (blau) und ein aus diesen Werten berechnetes $80\%$ Konfidenzintervall des Mittelwerts (schwarz)}
 			\label{fig_mean_interval_hist}
 		\end{figure}
 	\subsection{Herleitung des Konfidenzintervalls für den Mittelwerts }
@@ -181,7 +186,7 @@ Mannheim, Juni 2020
 		\gamma &= 1 - 2 P(T \le c) \nonumber \\
 		\frac{\gamma + 1}{2} &= P(T \le c) .
 		\end{align}
-		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek scipy\cite{scipy}.
+		Da $P(T \le c)$ dem Quantil einer t-Verteilung mit $N = n-1$ Freiheitsgraden entspricht, kann der Wert von $c$ aus einer Tabelle abgelesen werden. Ein genaueres Ergebnis bietet die Funktion \texttt{scipy.stats.t.ppf(x, N)} der Python Bibliothek \textit{scipy}\cite{scipy}.
 		Aus der Definition der Zufallsvariable $T$ in Gleichung \ref{eq_interval_t} ergibt sich für die Grenzen des Intervalls:
 		\begin{equation}
 		c_1 = \overline{x} - \frac{cs}{\sqrt{n}} \mbox{ und } c_2 = \overline{x} + \frac{cs}{\sqrt{n}}.
@@ -207,11 +212,11 @@ Mannheim, Juni 2020
 
 	\subsection{Empirischer Beweis}
 		\label{chap_interval_prove}
-		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführten  Zufallsvariablen $T$ und $Z$, würden genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet um die daraus gewonnen Formeln zu plausibilisieren.
+		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführten  Zufallsvariablen $T$ und $Z$, würden genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet, um die daraus gewonnen Formeln zu plausibilisieren.
 
-		Um die Korrektheit der in Abschnitt \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Abschnitt \ref{chap_sim_results} durchgeführt werden.
+		Um die Korrektheit der in Abschnitt \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen, wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Abschnitt \ref{chap_sim_results} durchgeführt werden.
 
-		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ kann der theoretisch zu erwartende Mittelwert und die Varianz berechnet werden:
+		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartende Mittelwert und die Varianz berechnet werden:
 		\begin{align}
 		E(X) &= n \cdot p , \\
 		\sigma &= n \cdot p (1-p) , \nonumber \\
@@ -220,7 +225,7 @@ Mannheim, Juni 2020
 
 		Es wird überprüft, ob der Erwartungswert und die Varianz der Grundgesamtheit innerhalb oder außerhalb des geschätzten Intervalls liegen.
 
-		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt und dabei der Anteil an korrekten Intervallen gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet. Wenn die Formeln stimmen ist der Erwartungswert dieses Verhältnisses $1$.
+		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt, dabei wird der Anteil an korrekten Intervallen gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet. Wenn die Formeln stimmen, ist der Erwartungswert dieses Verhältnisses $1$.
 
 		Um zu zeigen, dass diese Methode der Überprüfung funktioniert, wurden nicht nur die hergeleiteten Formeln, sondern auch absichtlich falschen Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
 
@@ -243,9 +248,10 @@ Mannheim, Juni 2020
 
 
 \section{Parametertests}
-		Mit einem Parametertest kann eine Aussage darüber getroffen werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werte einer Stichprobe plausibel ist. In diesem Kapitel wird der Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um Angaben eines Herstellers zu überprüfen.
+		Mit einem Parametertest kann eine Aussage darüber getroffen werden, ob ein bestimmter Wert eines Parameters angesichts der bekannten Werte einer Stichprobe plausibel ist. In diesem Kapitel wird der Parametertest für den Mittelwert $\mu$ untersucht. Dieser kann beispielsweise verwendet werden, um die Angabe des Mittelwerts von einem Herstellers zu überprüfen.
+		
 	\subsection{Herleitung des Parametertests für den Mittelwert}
-		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts der Grundgesamtheit $\mu_0$ korrekt ist.
+		Gegeben sind $n$ Stichprobenwerte $x_1, x_2, ..., x_n$ und ein Konfidenzniveau $\gamma$ bzw. eine Irrtumswahrscheinlichkeit $\alpha = 1 - \gamma$. Es soll getestet werden, ob ein angegebener Wert des Mittelwerts $\mu_0$ der Grundgesamtheit korrekt ist.
 
 		Das Ziel ist die Entscheidung zwischen einer Nullhypothese $H_0$ ($\mu = \mu_0$) und einer Alternativhypothese $H_1$ ($\mu \ne \mu_0$).
 
@@ -270,7 +276,7 @@ Mannheim, Juni 2020
 
 		Das Vorgehen entspricht im Wesentlichen dem aus Abschnitt \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
 
-		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} zu sehen. Das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit bei der richtigen Formeln liegen wieder nahe an $1$ und das der falschen Formeln weichen deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
+		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} grafisch dargestellt. Für jede getestete Irrtumswahrscheinlichkeiten wird das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit dargestellt. Bei der richtigen Formeln liegt dieses Verhältnis wieder nahe an $1$ und das der falschen Formeln weichen deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
 		\begin{figure}[H]
 			\centering
@@ -280,7 +286,7 @@ Mannheim, Juni 2020
 		\end{figure}
 
 \section{Experimenteller Test von Lazzarini}
-	Es gab mehrere Versuche durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$ anzunähern. Mario Lazzarini soll 1901 das zur Zeit umfangreichste Experiment durchgeführt haben. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf sechs Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
+	Es gab mehrere Versuche, durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$. Mario Lazzarini soll 1901 das zur Zeit umfangreichste Experiment durchgeführt haben \cite{History}. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf sechs Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
 
 	Wie glaubwürdig Lazzarinis Ergebnis war, lässt sich mithilfe eines Konfidenzintervalls bestimmen.
 	In Lazzarinis Versuch beträgt die geschätzte Standardabweichung $s = 0.249141$.
@@ -323,22 +329,21 @@ Mannheim, Juni 2020
 	
 \section{Ergebnisse und Diskussion}
 	In dieser Arbeit wurden Konfidenzintervalle und  Parametertests als hilfreiche Werkzeuge bei der Analyse von statistischen Daten eingeführt. Dabei wurden die dafür notwendigen Formeln hergeleitet und durch einen empirischen Beweis plausibilisiert.
-	Auch die Korrektheit des dabei verwendeten Testverfahrens wurde durch das Testen absichtlich falschen Formeln auf die Probe gestellt. Dabei hat das Testverfahren die falschen Formeln als solche identifizieren können und die Korrektheit der richtigen Formeln bestätigt.
+	Auch die Korrektheit des dabei verwendeten Testverfahrens wurde durch das Testen absichtlich falscher Formeln auf die Probe gestellt. Dabei hat das Testverfahren die falschen Formeln als solche identifizieren können und die Korrektheit der richtigen Formeln bestätigt.
 	
 	Das Buffonsche Nadelproblem wurde erläutert und die dabei relevanten Formeln hergeleitet. Außerdem wurde das Experiment in einer Simulation durchgeführt.
-	Zum Abschluss wurde ein spezieller Fall, die Durchführung des Experiments von Lazzarini, genauer untersucht. Dabei wurden durch ein Konfidenzintervall und Hintergrundinformationen gezeigt, dass Lazzarini vermutlich absichtlich manipuliert hat, um ein gutes Ergebnis aus dem Experiment zu erhalten.
+	Zum Abschluss wurde ein spezieller Fall, die Durchführung des Experiments von Lazzarini, genauer untersucht. Dabei wurden durch ein Konfidenzintervall und Hintergrundinformationen gezeigt, dass Lazzarini vermutlich manipuliert hat, um ein gutes Ergebnis aus dem Experiment zu erhalten.
 	
-	\bigskip
-	\noindent
-	Der Quellcode des erstellten Programms und dieser Arbeit ist öffentlich zugänglich unter:\\ \url{https://github.com/DavidRisch/buffon}.
 
 \newpage
 \begin{thebibliography}{99}
-	\bibitem{MathWorld}Weisstein, Eric W.: {\textit Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. \url{https://mathworld.wolfram.com/BuffonsNeedleProblem.html}
+	\bibitem{Pi}Gerald Steffens: \textit{Die Geschichte der Zahl Pi} \url{https://3.141592653589793238462643383279502884197169399375105820974944592.eu/die-geschichte-der-zahl-pi/}
+	\bibitem{MathWorld}Weisstein, Eric W.: \textit{Buffon's Needle Problem.}, From MathWorld--A Wolfram Web Resource. \url{https://mathworld.wolfram.com/BuffonsNeedleProblem.html}
 	\bibitem{Pillow}Pillow: \url{https://pillow.readthedocs.io/en/stable/}
 	\bibitem{matplotlib}matplotlib: \url{https://matplotlib.org/}
 	\bibitem{scipy}scipy: \url{https://www.scipy.org/}
-	\bibitem{Badger}Lee Badger: Lazzarini’s Lucky Approximation of $\pi$, Mathematics Magazine, Band 67, 1994, 83-85
+	\bibitem{History}Stephen M. Stigler: \textit{Statistics on the Table: The History of Statistical Concepts and Methods}, Harvard University Press, 2002, 142
+	\bibitem{Badger}Lee Badger: \textit{Lazzarini’s Lucky Approximation of $\pi$}, Mathematics Magazine, Band 67, 1994, 83-85
 \end{thebibliography}
 
 \end{document}
