@@ -122,9 +122,9 @@ Mannheim, Juni 2020
 	
 	Der Quellcode dieses und der in den folgenden Kapiteln erwähnten Python-Skripte ist öffentlich zugänglich unter: \url{https://github.com/DavidRisch/buffon}.
 
-	\subsection{Die Simulation}
+	\subsection{Simulation}
 		\label{chap_sim_results}
-		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier muss die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem linken Rand fortsetzen und erhält ein unendliches Feld. Dann wird für $n$ Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel berechnet. Diese Werte werden dann in einem Ergebnis gespeichert. Zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
+		Im ersten Schritt werden mehrere Nadelwürfe simuliert. Hier müssen die Nadellänge, der Abstand zwischen den Linien, die Anzahl der Linien und die Höhe des Feldes angegeben werden. Die Linien verlaufen in der Simulation vertikal. Rechts und links sind die Linien einen halben Linienabstand vom Rand des Feldes entfernt. So kann man gedanklich das Feld am rechten Rand wieder mit dem linken Rand fortsetzen und erhält ein unendliches Feld. Dann werden für $n$ Nadeln jeweils eine zufällige Position auf dem Feld und ein zufälliger Winkel ermittelt. Diese Werte werden dann in einem Ergebnisobjekt gespeichert. Zusätzlich wird gezählt wie viele Nadeln eine Linie schneiden.
 
 		\begin{figure}[htb]
 			\centering
@@ -134,13 +134,13 @@ Mannheim, Juni 2020
 		\end{figure}
 
 		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in x-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie.
-		Aus dem Ergebnis kann mit der Bibliothek Pillow\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
+		Aus dem Ergebnis kann mit der Bibliothek \textit{Pillow}\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
 		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, sowie die Gesamtanzahl der Nadeln. Dies kann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der anderen Module des Programms durchgeführt werden.
 
-	\subsection{Die Auswertung}
-		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek matplotlib\cite{matplotlib}. 
-		In Abbildung \ref{fig:hist} sieht man, dass die Anzahl an Nadeln, die eine Linie schneiden, annähernd normalverteilt ist.
+	\subsection{Auswertung}
+		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek \textit{matplotlib}\cite{matplotlib}. 
+		In Abbildung \ref{fig:hist} ist erkennbar, dass die Anzahl an Nadeln, die eine Linie schneiden, annähernd normalverteilt ist.
 
 		\begin{figure}[htb]
 			\centering
