@@ -87,14 +87,14 @@ Mannheim, Juni 2020
 	Diese Arbeit beschäftigt sich mit den in der Statistik wichtigen Werkzeugen der Intervallschätzung und des Parametertests. Diese werden hergeleitet und empirisch an einem Zufallsexperiment bewiesen.
 	Hierfür wird das Buffonsche Nadelproblem eingeführt und als Simulation in Python realisiert.
 	
-	Aus den Ergebnissen geht hervor, dass die hergeleiteten Formeln für die Intervallschätzung und den Parametertest zuverlässige Ergebnisse liefern. Zusätzlich wird das Testverfahren mithilfe von falschen Formeln überprüft.
+	Aus den Ergebnissen geht hervor, dass die hergeleiteten Formeln für die Intervallschätzung und den Parametertest zuverlässige Ergebnisse liefern. Zusätzlich wird das Testverfahren mithilfe von absichtlich falschen Formeln überprüft.
 	
 	Schlussendlich wird eine Durchführung des Buffonschen Nadelproblems von Mario Lazzarini aus dem Jahr 1901 analysiert. Mit einer Intervallschätzung werden Zweifel an den von Lazzarini berichteten Ergebnissen begründet.
 	
 	
 
 \section{Einleitung}
-	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern \cite{Pi}. Eine Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Intervallschätzungen und Parametertests aus der Statistik, mit denen Kennwerte, wie der Mittelwert, von einer Wahrscheinlichkeitsverteilung bestimmt werden können.
+	Im Laufe der Zeit gab es viele Versuche den Wert von $\pi$ anzunähern \cite{Pi}. Eine Methode ist das Buffonsche Nadelproblem. Hier kann durch das Werfen von Nadeln auf eine Fläche mit Linien experimentell ein Näherungswert für $\pi$ bestimmt werden. Das Buffonsche Nadelproblem ist aber nicht nur ein interessantes mathematisches Experiment, sondern es eignet sich auch zur empirischen Überprüfung von Formeln der Statistik.
 	
 	In dieser Arbeit wird zunächst das Buffonsche Nadelproblem beschrieben und dessen Simulation mittels eines Python-Skripts erläutert, das die benötigten Daten für die empirische Auswertung erzeugt. Anschließend werden die Konfidenzintervalle des Mittelwerts und der Varianz hergeleitet und anhand der generierten Daten bestätigt. Dann wird der Parametertest für den Mittelwert hergeleitet und empirisch bewiesen. Schließlich werden die Konfidenzintervalle auf einen historischen Versuch von Lazzarini angewendet, der mithilfe des Buffonschen Nadelproblems einen außergewöhnlich genauen Wert von $\pi$ ermitteln konnte.
 
@@ -105,7 +105,7 @@ Mannheim, Juni 2020
 	Dieses Experiment beinhaltet eine Nadel der Länge $l$, die in einem Winkel $\theta$ auf eine Fläche mit parallelen Linien mit dem Abstand $d$ fällt. Für eine kurze Nadel, also $l < d$, lässt sich die Wahrscheinlichkeit wie folgt berechnen: \cite{MathWorld}
 
 	\begin{align}
-		P(x) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ 
+		P(l, d) &= \frac{1}{2\pi}\int_{0}^{2\pi}\frac{l|\cos{\theta}|}{d}d\theta \\ 
 		&= \frac{l}{2 \pi d} 4 \int_{0}^{\pi/2}\cos{\theta}d\theta  \nonumber \\
 		&= \frac{2l}{\pi d} \nonumber .
 	\end{align}
@@ -113,7 +113,7 @@ Mannheim, Juni 2020
 	Für einen Linienabstand von $d=2l$ vereinfacht sich die Formel zu:
 	
 	\begin{align}
-		P(x) &= \frac{2l}{\pi d} \nonumber \\ 
+		P(l, d) &= \frac{2l}{\pi d} \nonumber \\ 
 		&= \frac{2l}{\pi (2l)} \nonumber \\
 		&= \frac{1}{\pi} .
 	\end{align}
@@ -132,14 +132,14 @@ Mannheim, Juni 2020
 		\begin{figure}[htb]
 			\centering
 			\includegraphics[width=0.85\columnwidth]{images/needels.png}
-			\caption{Ein Ergebnis der Simulation. Grüne Striche stellen Nadeln dar, die eine Linie schneiden. Rote Striche sind Nadeln, die keine Linie schneiden.}
+			\caption{Ein Ergebnis der Simulation. Blaue Striche stellen Nadeln dar, die eine Linie schneiden. Rote Striche sind Nadeln, die keine Linie schneiden.}
 			\label{fig:needels}
 		\end{figure}
 
 		Um zu prüfen, ob eine Nadel eine Linie schneidet, wird der Abstand vom Mittelpunkt der Nadel zur nächsten Linie berechnet. Dann wird mit dem Winkel und der Nadellänge der Abstand in x-Richtung (orthogonal zu den Linien) vom Mittelpunkt der Nadel zur Spitze berechnet. Wenn dieser Abstand größer als der Abstand zur nächsten Linie ist, schneidet die Nadel die Linie.
 		Aus dem Ergebnis kann mit der Bibliothek \textit{Pillow}\cite{Pillow} ein Bild (siehe Abbildung \ref{fig:needels}) erstellt werden, das die geworfenen Nadeln darstellt.
 
-		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter, sowie die Gesamtanzahl der Nadeln. Dies kann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der anderen Module des Programms durchgeführt werden.
+		Für die statistische Auswertung enthält das Programm eine Methode, die eine Reihe von Simulationen durchführt. Für jede Simulation wird dabei die Anzahl der Nadeln, die eine Linie schneiden, in eine JSON-Datei geschrieben. Diese Datei enthält außerdem die Simulationsparameter sowie die Gesamtanzahl der Nadeln. Dies kann im nächsten Schritt ausgewertet werden. So muss die rechenaufwendige Simulation nicht bei jeder Ausführung der anderen Module des Programms durchgeführt werden.
 
 	\subsection{Auswertung}
 		Es gibt verschiedene Möglichkeiten die Simulationen mit dem Programm auszuwerten. Als erstes kann man aus der JSON-Datei ein Histogramm erzeugen, das die Häufigkeit eines Ergebnisses darstellt. Erstellt werden die Diagramme mit der Bibliothek \textit{matplotlib}\cite{matplotlib}. 
