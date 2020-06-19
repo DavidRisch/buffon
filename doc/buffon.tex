@@ -215,7 +215,7 @@ Mannheim, Juni 2020
 
 	\subsection{Empirischer Beweis}
 		\label{chap_interval_prove}
-		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführten  Zufallsvariablen $T$ und $Z$, würden genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet, um die daraus gewonnen Formeln zu plausibilisieren.
+		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführten  Zufallsvariablen $T$ und $Z$ würden genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet, um die daraus gewonnen Formeln zu plausibilisieren.
 
 		Um die Korrektheit der in Abschnitt \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen, wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Abschnitt \ref{chap_sim_results} durchgeführt werden.
 
@@ -279,7 +279,7 @@ Mannheim, Juni 2020
 
 		Das Vorgehen entspricht im Wesentlichen dem aus Abschnitt \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
 
-		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} grafisch dargestellt. Für jede getestete Irrtumswahrscheinlichkeiten wird das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit dargestellt. Bei der richtigen Formeln liegt dieses Verhältnis wieder nahe an $1$ und das der falschen Formeln weichen deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
+		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} grafisch dargestellt. Für jede getestete Irrtumswahrscheinlichkeiten wird das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit dargestellt. Bei den richtigen Formeln liegt dieses Verhältnis wieder nahe an $1$ und das der falschen Formeln weicht deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
 		\begin{figure}[H]
 			\centering
@@ -289,7 +289,7 @@ Mannheim, Juni 2020
 		\end{figure}
 
 \section{Experimenteller Test von Lazzarini}
-	Es gab mehrere Versuche, durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$. Mario Lazzarini soll 1901 das zur Zeit umfangreichste Experiment durchgeführt haben \cite{History}. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf sechs Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
+	Es gab mehrere Versuche, durch eine praktische Durchführung des Buffonschen Nadelexperiments den Wert für $\pi$ anzunähern. Mario Lazzarini soll 1901 das zur Zeit umfangreichste Experiment durchgeführt haben \cite{History}. Hierfür baute er eigens eine Maschine und führte das Experiment mit 3408 Nadelwürfen durch. Das Längenverhältnis betrug hierbei ${\tfrac {l}{d}={\tfrac {5}{6}}}$. Mit einem Ergebnis von 1808 Nadeln, die eine Linie schneiden, schaffte Lazzarini es mit diesem Experiment den Wert von $\pi$ auf sechs Nachkommastellen anzunähern. Diese hohe Genauigkeit wurde von vielen als Glückstreffer oder Fälschung gesehen.\cite{Badger}
 
 	Wie glaubwürdig Lazzarinis Ergebnis war, lässt sich mithilfe eines Konfidenzintervalls bestimmen.
 	In Lazzarinis Versuch beträgt die geschätzte Standardabweichung $s = 0.249141$.
@@ -306,7 +306,7 @@ Mannheim, Juni 2020
 	\end{align}
 	oder schlechter für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit $P$ entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
 	\begin{equation}
-	P(x) = \frac{2l}{\pi d}.
+	P(l,d) = \frac{2l}{\pi d}.
 	\end{equation}
 	So erhält man als erwartete Genauigkeit für den ermittelten Wert von $\pi$
 	\begin{align}
