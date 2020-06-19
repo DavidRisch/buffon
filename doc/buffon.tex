@@ -217,7 +217,7 @@ Mannheim, Juni 2020
 		\label{chap_interval_prove}
 		Insbesondere durch die Annahmen, die in Gleichung \ref{eq_interval_t} und \ref{eq_interval_z} eingeführten  Zufallsvariablen $T$ und $Z$ würden genau einer t-Verteilung bzw. Chi-Quadrat-Verteilung mit jeweils $N = n-1$ Freiheitsgraden entsprechen, ist die Herleitung alleine nur bedingt geeignet, um die daraus gewonnen Formeln zu plausibilisieren.
 
-		Um die Korrektheit der in Abschnitt \ref{chap_interval_mean_math} hergeleiteten Formeln zu bestätigen, wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den von der Simulation erstellten Daten aus Abschnitt \ref{chap_sim_results} durchgeführt werden.
+		Um die Korrektheit der in Abschnitt \ref{chap_interval_mean_math} und \ref{chap_interval_var_math} hergeleiteten Formeln zu bestätigen, wurde ein empirischer Beweis durchgeführt. Die Berechnung der Konfidenzintervalle wurde in Python implementiert, so können diese beliebig oft mit den durch die Simulation erstellten Daten aus Abschnitt \ref{chap_sim_results} durchgeführt werden.
 
 		Der folgende Test wird separat für mehrere Werte von $\gamma \in [0, 1]$ durchgeführt. Es wird für $n = 20$ Werte das Konfidenzintervall des Mittelwerts und der Varianz mit einem Konfidenzniveau $\gamma$ gebildet. Durch den in Kapitel \ref{chap_buffon_needle} hergeleiteten Wert für $p$ können der theoretisch zu erwartende Mittelwert und die Varianz berechnet werden:
 		\begin{align}
@@ -230,7 +230,7 @@ Mannheim, Juni 2020
 
 		Dieser Vorgang wird in $10^5$ Durchläufen wiederholt, dabei wird der Anteil an korrekten Intervallen gezählt. Daraus wird das Verhältnis zwischen dem tatsächlichen Anteil an korrekten Intervallen und $\gamma$ berechnet. Wenn die Formeln stimmen, ist der Erwartungswert dieses Verhältnisses $1$.
 
-		Um zu zeigen, dass diese Methode der Überprüfung funktioniert, wurden nicht nur die hergeleiteten Formeln, sondern auch absichtlich falschen Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
+		Um zu zeigen, dass diese Methode der Überprüfung funktioniert, wurden nicht nur die hergeleiteten Formeln, sondern auch absichtlich falsche Formeln überprüft. Für die falschen Formeln wurden $N = n$ Freiheitsgrade angenommen (richtig sind $N = n-1$). Abhängig von den Parametern ist dieser Fehler schwer zu erkennen, da die Ergebnisse sehr nahe an den eigentlich richtigen liegen.
 
 		Die Ergebnisse sind in Abbildung \ref{fig_mean_interval_dot} und \ref{fig_var_interval_dot} dargestellt. Dabei ist klar zu erkennen, dass die mit den richtigen Formeln berechneten Ergebnisse nahe an $1$ liegen und die mit den falschen Formeln berechneten Ergebnisse deutlich von $1$ abweichen. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
@@ -279,7 +279,9 @@ Mannheim, Juni 2020
 
 		Das Vorgehen entspricht im Wesentlichen dem aus Abschnitt \ref{chap_interval_prove}. Die Auswertung gestaltet sich etwas einfacher, da der Parametertest direkt einen Wahrheitswert liefert, die Annahme oder Ablehnung von $H_0$.
 
-		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} grafisch dargestellt. Für jede getestete Irrtumswahrscheinlichkeiten wird das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit dargestellt. Bei den richtigen Formeln liegt dieses Verhältnis wieder nahe an $1$ und das der falschen Formeln weicht deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
+		Für jede getestete Irrtumswahrscheinlichkeiten wird das Verhältnis aus negativen Parametertests und der Irrtumswahrscheinlichkeit dargestellt.
+		Die Ergebnisse sind in Abbildung \ref{fig_test_mean_dot} grafisch dargestellt.
+		Bei den richtigen Formeln liegt dieses Verhältnis wieder nahe an $1$ und das der falschen Formeln weicht deutlich von $1$ ab. Dies bestätigt die Korrektheit der Formeln und des Testverfahrens.
 
 		\begin{figure}[H]
 			\centering
@@ -298,15 +300,15 @@ Mannheim, Juni 2020
 	P(T \le c) = \frac{\gamma + 1}{2} = \frac{0.95 + 1}{2} = 0.975 .
 	\end{equation}
 	Mit $N = n - 1 = 3407$ Freiheitsgraden erhält man aus der t-Verteilung $c = 1,96066$.
-	Somit erreichte Lazzarini bei seinem Experiment zu $95\%$ eine Genauigkeit von
+	Somit erreichte Lazzarini bei seinem Experiment zu $95\%$ eine Genauigkeit von mindestens
 	\begin{align}
 	\Delta \mu &= \frac{cs}{\sqrt{n}} \\
 	&= \frac{1,96066 \cdot 0.249141}{\sqrt{3408}} \nonumber \\
 	&= 8,367538 \cdot 10 ^{-3} \nonumber
 	\end{align}
-	oder schlechter für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit $P$ entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
+	für den Mittelwert. Der Zusammenhang von $\pi$ und dem Mittelwert, der hier der Wahrscheinlichkeit $P$ entspricht, da es sich um eine Binomialverteilung handelt, ist durch folgende Formel gegeben (siehe Kapitel \ref{chap_buffon_needle}):
 	\begin{equation}
-	P(l,d) = \frac{2l}{\pi d}.
+	P(l,d) = \frac{2l}{\pi d} = \frac{2 \cdot 5}{\pi \cdot 6}.
 	\end{equation}
 	So erhält man als erwartete Genauigkeit für den ermittelten Wert von $\pi$
 	\begin{align}
